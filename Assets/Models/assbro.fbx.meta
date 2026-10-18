@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e02bd8d95c6d2af4f9e079f0d1a9a67e
+guid: a04e29171a756244992a86a0c41a9857
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -64,7 +64,7 @@ ModelImporter:
       takeName: Jump
       internalID: 5539831331247536789
       firstFrame: 0
-      lastFrame: 19
+      lastFrame: 9
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -180,7 +180,7 @@ ModelImporter:
       takeName: JumpGrab
       internalID: -4822792541358404350
       firstFrame: 0
-      lastFrame: 19
+      lastFrame: 9
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

@@ -20,6 +20,8 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] float groundDistance = 0.2f;
     [SerializeField] LayerMask groundMask;
 
+    [SerializeField] Animator playerAnim;
+
     Vector3 playerVelocity;
     bool isGrounded;
 
@@ -49,6 +51,8 @@ public class PlayerControls : MonoBehaviour
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
 
             jumpPressedTime = float.NegativeInfinity;
+
+            playerAnim.SetTrigger("jump");
         }
         /*
         isGrounded = Physics.CheckSphere(
@@ -58,8 +62,8 @@ public class PlayerControls : MonoBehaviour
         );
         */
 
-        if (isGrounded) { Debug.Log("grounded"); }
-        else { Debug.Log("in air"); }
+        //if (isGrounded) { Debug.Log("grounded"); }
+        //else { Debug.Log("in air"); }
 
         // WASD movement
         Vector2 input = moveAction.action.ReadValue<Vector2>();
@@ -89,6 +93,12 @@ public class PlayerControls : MonoBehaviour
                 targetRotation,
                 rotationSpeed * Time.deltaTime
             );
+
+            playerAnim.SetBool("running", true);
+        }
+        else
+        {
+            playerAnim.SetBool("running", false);
         }
 
         controller.Move(movement * playerSpeed * Time.deltaTime);
@@ -104,5 +114,6 @@ public class PlayerControls : MonoBehaviour
 
         controller.Move(playerVelocity * Time.deltaTime);
 
+        playerAnim.SetBool("isGrounded", controller.isGrounded);
     }
 }

@@ -106,6 +106,7 @@ public class PlayerControls : MonoBehaviour
         Vector3 finalMovement = movement * playerSpeed + gravityVelocity;
 
         controller.Move(finalMovement * Time.deltaTime);
+        playerAnim.SetBool("isGrounded", controller.isGrounded);
     }
 
     public void AlignPlayerToGravity()
@@ -123,6 +124,5 @@ public class PlayerControls : MonoBehaviour
             : Quaternion.FromToRotation(transform.up, newUp);
 
         transform.rotation = delta * transform.rotation;
-        playerAnim.SetBool("isGrounded", controller.isGrounded);
     }
 }

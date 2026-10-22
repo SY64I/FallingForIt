@@ -25,6 +25,8 @@ public class PlayerControls : MonoBehaviour
     Vector3 playerVelocity;
     bool isGrounded;
 
+    private Vector3 gravityVelocity = Vector3.zero;
+
     void OnEnable()
     {
         moveAction.action.Enable();
@@ -39,28 +41,25 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        // Check if player is touching the ground
+        Vector3 up = -Physics.gravity.normalized;
+
         isGrounded = controller.isGrounded;
+
         if (jumpAction.action.WasPressedThisFrame())
-        {
             jumpPressedTime = Time.time;
-        }
-        // Jump
+
+        // Stop accumulating gravity while grounded
+        if (isGrounded && Vector3.Dot(gravityVelocity, up) < 0f)
+            gravityVelocity = -up * 2f;
+
+        // Jump along "up", written into gravityVelocity (the one actually applied)
         if (isGrounded && Time.time - jumpPressedTime <= jumpBufferTime)
         {
-            playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-
+            gravityVelocity = up * Mathf.Sqrt(2f * jumpHeight * Physics.gravity.magnitude);
             jumpPressedTime = float.NegativeInfinity;
 
             playerAnim.SetTrigger("jump");
         }
-        /*
-        isGrounded = Physics.CheckSphere(
-            groundCheck.position,
-            groundDistance,
-            groundMask
-        );
-        */
 
         //if (isGrounded) { Debug.Log("grounded"); }
         //else { Debug.Log("in air"); }
@@ -68,13 +67,12 @@ public class PlayerControls : MonoBehaviour
         // WASD movement
         Vector2 input = moveAction.action.ReadValue<Vector2>();
 
-        // Get camera directions
-        Vector3 cameraForward = cameraTransform.forward;
-        Vector3 cameraRight = cameraTransform.right;
+        Vector3 cameraForward = Vector3.ProjectOnPlane(cameraTransform.forward, up);
+        Vector3 cameraRight   = Vector3.ProjectOnPlane(cameraTransform.right, up);
 
-        // Ignore camera's vertical tilt
-        cameraForward.y = 0f;
-        cameraRight.y = 0f;
+        // Fallback when looking straight along the gravity axis
+        if (cameraForward.sqrMagnitude < 0.001f)
+            cameraForward = Vector3.ProjectOnPlane(cameraTransform.up, up);
 
         cameraForward.Normalize();
         cameraRight.Normalize();
@@ -86,7 +84,7 @@ public class PlayerControls : MonoBehaviour
         // Rotate player to face movement direction
         if (movement.sqrMagnitude > 0.01f)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(movement);
+            Quaternion targetRotation = Quaternion.LookRotation(movement, up);
 
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
@@ -101,19 +99,30 @@ public class PlayerControls : MonoBehaviour
             playerAnim.SetBool("running", false);
         }
 
-        controller.Move(movement * playerSpeed * Time.deltaTime);
+        // Apply gravity in the world's current gravity direction
+        gravityVelocity += Physics.gravity * Time.deltaTime;
 
-        // Keep player on the ground
-        if (isGrounded && playerVelocity.y < 0)
-        {
-            playerVelocity.y = -2f;
-        }
+        // Combine player movement and gravity into one movement call
+        Vector3 finalMovement = movement * playerSpeed + gravityVelocity;
 
-        // Gravity
-        playerVelocity.y += gravity * Time.deltaTime;
+        controller.Move(finalMovement * Time.deltaTime);
+    }
 
-        controller.Move(playerVelocity * Time.deltaTime);
+    public void AlignPlayerToGravity()
+    {
+        if (Physics.gravity.sqrMagnitude < 0.001f) return;
 
+        Vector3 newUp = -Physics.gravity.normalized;
+
+        // Drop momentum from the old gravity direction
+        gravityVelocity = Vector3.zero;
+
+        // Handle a full 180° flip, where FromToRotation is ambiguous
+        Quaternion delta = Vector3.Dot(transform.up, newUp) < -0.999f
+            ? Quaternion.AngleAxis(180f, transform.forward)
+            : Quaternion.FromToRotation(transform.up, newUp);
+
+        transform.rotation = delta * transform.rotation;
         playerAnim.SetBool("isGrounded", controller.isGrounded);
     }
 }

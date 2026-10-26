@@ -3,9 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerControls : MonoBehaviour
 {
-    [SerializeField] CharacterController controller;
+    [SerializeField] Rigidbody rb;
     [SerializeField] float playerSpeed = 8f;
-    [SerializeField] float gravity = -50f;
     [SerializeField] float rotationSpeed = 10f;
     [SerializeField] float jumpHeight = 2f;
     [SerializeField] float jumpBufferTime = 0.12f;
@@ -17,12 +16,11 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] Transform cameraTransform;
 
     [SerializeField] Transform groundCheck;
-    [SerializeField] float groundDistance = 0.2f;
+    [SerializeField] float groundDistance = 0.3f;
     [SerializeField] LayerMask groundMask;
 
     [SerializeField] Animator playerAnim;
 
-    Vector3 playerVelocity;
     bool isGrounded;
 
     private Vector3 gravityVelocity = Vector3.zero;
@@ -39,57 +37,86 @@ public class PlayerControls : MonoBehaviour
         jumpAction.action.Disable();
     }
 
+    Vector2 moveInput;
+
     void Update()
     {
-        Vector3 up = -Physics.gravity.normalized;
-
-        isGrounded = controller.isGrounded;
-
         if (jumpAction.action.WasPressedThisFrame())
-            jumpPressedTime = Time.time;
-
-        // Stop accumulating gravity while grounded
-        if (isGrounded && Vector3.Dot(gravityVelocity, up) < 0f)
-            gravityVelocity = -up * 2f;
-
-        // Jump along "up", written into gravityVelocity (the one actually applied)
-        if (isGrounded && Time.time - jumpPressedTime <= jumpBufferTime)
         {
-            gravityVelocity = up * Mathf.Sqrt(2f * jumpHeight * Physics.gravity.magnitude);
-            jumpPressedTime = float.NegativeInfinity;
+            jumpPressedTime = Time.time;
+            Debug.Log("JUMP BUTTON PRESSED");
+        }
 
+        moveInput = moveAction.action.ReadValue<Vector2>();
+    }
+
+
+    void FixedUpdate()
+    {
+        // Prevent physics collisions from making the player spin
+        rb.angularVelocity = Vector3.zero;
+        
+        Vector3 gravity = Physics.gravity;
+        if (gravity.sqrMagnitude < 0.001f) return;
+
+        Vector3 up = -gravity.normalized;
+
+        isGrounded = CheckGrounded(up);
+
+        Vector3 velocity = rb.linearVelocity;
+        float verticalSpeed = Vector3.Dot(velocity, up);
+
+        // Stop downward movement while grounded
+        if (isGrounded && verticalSpeed < 0f)
+        {
+            velocity -= up * verticalSpeed;
+        }
+
+        // Jump when grounded and the button was recently pressed
+        if (isGrounded &&
+            Time.time - jumpPressedTime <= jumpBufferTime)
+        {
+            Debug.Log("JUMP TRIGGERED");
+
+            float jumpSpeed =
+                Mathf.Sqrt(2f * jumpHeight * gravity.magnitude);
+
+            velocity += up * jumpSpeed;
+
+            jumpPressedTime = float.NegativeInfinity;
             playerAnim.SetTrigger("jump");
         }
 
-        //if (isGrounded) { Debug.Log("grounded"); }
-        //else { Debug.Log("in air"); }
-
-        // WASD movement
-        Vector2 input = moveAction.action.ReadValue<Vector2>();
-
-        Vector3 cameraForward = Vector3.ProjectOnPlane(cameraTransform.forward, up);
-        Vector3 cameraRight   = Vector3.ProjectOnPlane(cameraTransform.right, up);
-
-        // Fallback when looking straight along the gravity axis
-        if (cameraForward.sqrMagnitude < 0.001f)
-            cameraForward = Vector3.ProjectOnPlane(cameraTransform.up, up);
-
-        cameraForward.Normalize();
-        cameraRight.Normalize();
-
         // Camera-relative movement
-        Vector3 movement = cameraForward * input.y + cameraRight * input.x;
+        Vector3 cameraForward =
+            Vector3.ProjectOnPlane(cameraTransform.forward, up).normalized;
+
+        Vector3 cameraRight =
+            Vector3.ProjectOnPlane(cameraTransform.right, up).normalized;
+
+        if (cameraForward.sqrMagnitude < 0.001f)
+        {
+            cameraForward =
+                Vector3.ProjectOnPlane(cameraTransform.up, up).normalized;
+        }
+
+        Vector3 movement =
+            cameraForward * moveInput.y + cameraRight * moveInput.x;
+
         movement = Vector3.ClampMagnitude(movement, 1f);
 
-        // Rotate player to face movement direction
+        // Rotate toward movement direction
         if (movement.sqrMagnitude > 0.01f)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(movement, up);
+            Quaternion targetRotation =
+                Quaternion.LookRotation(movement, up);
 
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRotation,
-                rotationSpeed * Time.deltaTime
+            rb.MoveRotation(
+                Quaternion.Slerp(
+                    rb.rotation,
+                    targetRotation,
+                    rotationSpeed * Time.fixedDeltaTime
+                )
             );
 
             playerAnim.SetBool("running", true);
@@ -99,30 +126,47 @@ public class PlayerControls : MonoBehaviour
             playerAnim.SetBool("running", false);
         }
 
-        // Apply gravity in the world's current gravity direction
-        gravityVelocity += Physics.gravity * Time.deltaTime;
+        // Set movement while preserving velocity along gravity
+        Vector3 horizontalVelocity =
+            movement * playerSpeed;
 
-        // Combine player movement and gravity into one movement call
-        Vector3 finalMovement = movement * playerSpeed + gravityVelocity;
+        Vector3 verticalVelocity =
+            Vector3.Project(velocity, up);
+        
+        Debug.Log("Velocity: " + rb.linearVelocity);
 
-        controller.Move(finalMovement * Time.deltaTime);
-        playerAnim.SetBool("isGrounded", controller.isGrounded);
+        rb.linearVelocity = horizontalVelocity + verticalVelocity;
+
+        // Apply gravity exactly once
+        rb.AddForce(gravity, ForceMode.Acceleration);
+
+        playerAnim.SetBool("isGrounded", isGrounded);
     }
 
     public void AlignPlayerToGravity()
     {
-        if (Physics.gravity.sqrMagnitude < 0.001f) return;
+        if (Physics.gravity.sqrMagnitude < 0.001f)
+            return;
 
         Vector3 newUp = -Physics.gravity.normalized;
 
-        // Drop momentum from the old gravity direction
-        gravityVelocity = Vector3.zero;
-
-        // Handle a full 180° flip, where FromToRotation is ambiguous
-        Quaternion delta = Vector3.Dot(transform.up, newUp) < -0.999f
+        // Rotate the player to match the new gravity direction
+        Quaternion delta =
+            Vector3.Dot(transform.up, newUp) < -0.999f
             ? Quaternion.AngleAxis(180f, transform.forward)
             : Quaternion.FromToRotation(transform.up, newUp);
 
-        transform.rotation = delta * transform.rotation;
+        rb.rotation = delta * rb.rotation;
+    }
+
+    bool CheckGrounded(Vector3 up)
+    {
+        return Physics.Raycast(
+            groundCheck.position,
+            -up,
+            groundDistance,
+            groundMask,
+            QueryTriggerInteraction.Ignore
+        );
     }
 }

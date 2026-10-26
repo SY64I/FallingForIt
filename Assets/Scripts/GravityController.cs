@@ -6,8 +6,15 @@ using UnityEngine.InputSystem;
 public class GravityController : MonoBehaviour
 {
     [SerializeField] private GravityDirection selector;
-    [SerializeField] private float gravityStrength = 9.81f;
+    private float gravity = 9.81f;
+    [SerializeField] private float gravityStrength = 2f;
     [SerializeField] private PlayerControls playerController;
+
+
+    private void Start()
+    {
+        Physics.gravity *= gravityStrength;
+    }
 
     private void Update()
     {
@@ -23,30 +30,30 @@ public class GravityController : MonoBehaviour
     {
          Debug.Log("ShiftGravity started.");
 
-    if (selector == null)
-    {
-        Debug.LogError("GravityDirection selector is not assigned!");
-        return;
-    }
+        if (selector == null)
+        {
+            Debug.LogError("GravityDirection selector is not assigned!");
+            return;
+        }
 
-    bool success = selector.GetGravityDirection(out Vector3 newGravity);
+        bool success = selector.GetGravityDirection(out Vector3 newGravity);
 
-    Debug.Log("GetGravityDirection returned: " + success);
+        Debug.Log("GetGravityDirection returned: " + success);
 
-    if (!success)
-    {
-        Debug.LogWarning("Could not determine gravity direction.");
-        return;
-    }
+        if (!success)
+        {
+            Debug.LogWarning("Could not determine gravity direction.");
+            return;
+        }
 
-    Physics.gravity = newGravity * gravityStrength;
+        Physics.gravity = newGravity * gravity * gravityStrength;
 
-    if (playerController != null)
-    {
-        playerController.AlignPlayerToGravity();
-    }
+        if (playerController != null)
+        {
+            playerController.AlignPlayerToGravity();
+        }
 
-    Debug.Log("New gravity: " + Physics.gravity);
-    Debug.Log("GravityController successfully applied gravity.");
+        Debug.Log("New gravity: " + Physics.gravity);
+        Debug.Log("GravityController successfully applied gravity.");
     }
 }

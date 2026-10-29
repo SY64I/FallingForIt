@@ -6507,7 +6507,7 @@ GameObject:
   - component: {fileID: 317104400681478600}
   - component: {fileID: 3400618725196968252}
   m_Layer: 0
-  m_Name: Ground8x8
+  m_Name: Gro8x8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

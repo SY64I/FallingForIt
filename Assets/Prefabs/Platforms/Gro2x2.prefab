@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 2206559282142710423}
   - component: {fileID: -3051418156014832284}
   m_Layer: 0
-  m_Name: Ground2x2
+  m_Name: Gro2x2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

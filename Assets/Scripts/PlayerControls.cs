@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -19,8 +20,14 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] float groundDistance = 0.3f;
     [SerializeField] LayerMask groundMask;
 
+<<<<<<< Updated upstream
+    Vector3 playerVelocity;
+=======
     [SerializeField] Animator playerAnim;
 
+    [SerializeField] Vector3 spawnPoint;
+
+>>>>>>> Stashed changes
     bool isGrounded;
 
     private Vector3 gravityVelocity = Vector3.zero;
@@ -168,5 +175,32 @@ public class PlayerControls : MonoBehaviour
             groundMask,
             QueryTriggerInteraction.Ignore
         );
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Goo"))
+        {
+            enabled = false;
+            playerAnim.SetTrigger("dieAcid");
+            StartCoroutine(this.deathByAcid());
+        }
+    }
+
+    private IEnumerator deathByAcid()
+    {
+        Debug.Log("Player has collided with Goo");
+        rb.linearVelocity = Vector3.zero;
+        yield return new WaitForSeconds(1.2f);
+        this.playerDies();
+    }
+
+    private void playerDies()
+    {
+        Debug.Log("Player has died");
+        rb.position = spawnPoint;
+        // Cancel the death animation
+        playerAnim.Play("Idle", 0, 0f);
+        enabled = true;
     }
 }

@@ -22,7 +22,7 @@ public class PlayerControls : MonoBehaviour
 
     Vector3 playerVelocity;
     [SerializeField] Animator playerAnim;
-
+    
     [SerializeField] Vector3 spawnPoint;
 
     bool isGrounded;

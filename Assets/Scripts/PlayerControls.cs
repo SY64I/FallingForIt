@@ -20,14 +20,11 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] float groundDistance = 0.3f;
     [SerializeField] LayerMask groundMask;
 
-<<<<<<< Updated upstream
     Vector3 playerVelocity;
-=======
     [SerializeField] Animator playerAnim;
 
     [SerializeField] Vector3 spawnPoint;
 
->>>>>>> Stashed changes
     bool isGrounded;
 
     private Vector3 gravityVelocity = Vector3.zero;

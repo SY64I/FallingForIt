@@ -19,10 +19,10 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundDistance = 0.3f;
     [SerializeField] LayerMask groundMask;
-    
-    Vector3 playerVelocity;
 
+    Vector3 playerVelocity;
     [SerializeField] Animator playerAnim;
+    
     [SerializeField] Vector3 spawnPoint;
 
     bool isGrounded;

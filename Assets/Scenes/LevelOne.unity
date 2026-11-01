@@ -43094,7 +43094,7 @@ PrefabInstance:
       objectReference: {fileID: 330585546}
     - target: {fileID: 1670600565599968932, guid: 381c9b4a659e3844da3288aeaf794e9b, type: 3}
       propertyPath: m_Name
-      value: Assbro
+      value: Asbro
       objectReference: {fileID: 0}
     - target: {fileID: 1670600565599968932, guid: 381c9b4a659e3844da3288aeaf794e9b, type: 3}
       propertyPath: m_TagString

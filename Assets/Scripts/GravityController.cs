@@ -13,7 +13,7 @@ public class GravityController : MonoBehaviour
 
     private void Start()
     {
-        Physics.gravity *= gravityStrength;
+        Physics.gravity = Vector3.down * gravity * gravityStrength;
     }
 
     private void Update()

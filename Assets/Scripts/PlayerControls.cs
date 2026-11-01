@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -182,6 +183,12 @@ public class PlayerControls : MonoBehaviour
             playerAnim.SetTrigger("dieAcid");
             StartCoroutine(this.deathByAcid());
         }
+        else if (collision.gameObject.CompareTag("Monster"))
+        {
+            enabled = false;
+            playerAnim.SetTrigger("dieMonster");
+            StartCoroutine(this.deathByAcid());
+        }
     }
 
     private IEnumerator deathByAcid()
@@ -195,9 +202,12 @@ public class PlayerControls : MonoBehaviour
     private void playerDies()
     {
         Debug.Log("Player has died");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        /*
         rb.position = spawnPoint;
         // Cancel the death animation
         playerAnim.Play("Idle", 0, 0f);
         enabled = true;
+        */
     }
 }

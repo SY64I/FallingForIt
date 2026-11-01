@@ -1,8 +1,8 @@
-### 'Falling For It' Prototype
+# 'Falling For It' Prototype
 
 ## Controls:
 
-WASD - Move
-Space - Jump
-E - Switch Gravity
-F - Interact With Button
+- WASD - Move
+- Space - Jump
+- E - Switch Gravity
+- F - Interact With Button

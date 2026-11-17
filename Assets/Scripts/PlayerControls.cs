@@ -22,7 +22,6 @@ public class PlayerControls : MonoBehaviour
 
     Vector3 playerVelocity;
     [SerializeField] Animator playerAnim;
-
     [SerializeField] Vector3 spawnPoint;
 
     bool isGrounded;
@@ -137,7 +136,7 @@ public class PlayerControls : MonoBehaviour
         Vector3 verticalVelocity =
             Vector3.Project(velocity, up);
         
-        //Debug.Log("Velocity: " + rb.linearVelocity);
+        Debug.Log("Velocity: " + rb.linearVelocity);
 
         rb.linearVelocity = horizontalVelocity + verticalVelocity;
 

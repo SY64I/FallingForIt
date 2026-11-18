@@ -22,10 +22,17 @@ public class PlayerControls : MonoBehaviour
 
     Vector3 playerVelocity;
     [SerializeField] Animator playerAnim;
+<<<<<<< Updated upstream
 
     [SerializeField] Vector3 spawnPoint;
 
     bool isGrounded;
+=======
+    
+    [SerializeField] Vector3 spawnPoint;    
+    [SerializeField] private AudioClip[] landingSoundClip;
+    bool isGrounded = false;
+>>>>>>> Stashed changes
 
     private Vector3 gravityVelocity = Vector3.zero;
 
@@ -57,6 +64,7 @@ public class PlayerControls : MonoBehaviour
 
     void FixedUpdate()
     {
+        bool oldGrounded = isGrounded;
         // Prevent physics collisions from making the player spin
         rb.angularVelocity = Vector3.zero;
         
@@ -145,6 +153,14 @@ public class PlayerControls : MonoBehaviour
         rb.AddForce(gravity, ForceMode.Acceleration);
 
         playerAnim.SetBool("isGrounded", isGrounded);
+
+        if ((oldGrounded == false) && (isGrounded == true))
+        {
+            // just landed onto floor
+            int random = Random.Range(0, landingSoundClip.Length);
+            var clip = landingSoundClip[random];
+            SoundFXManager.instance.PlaySoundFXClip(clip, transform, 1f);
+        }
     }
 
     public void AlignPlayerToGravity()

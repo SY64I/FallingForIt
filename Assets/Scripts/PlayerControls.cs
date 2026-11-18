@@ -194,7 +194,7 @@ public class PlayerControls : MonoBehaviour
     {
         Debug.Log("Player has collided with Goo");
         rb.linearVelocity = Vector3.zero;
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.8f);
         this.playerDies();
     }
 

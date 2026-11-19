@@ -61,16 +61,18 @@ public class MietteAnimations : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !playerGrabbed)
+        if (other.CompareTag("Player"))
         {
-            rb.linearVelocity = Vector3.zero;
-            other.transform.parent = playerGrabLocation;
+            if (!playerGrabbed)
+            {
+                rb.linearVelocity = Vector3.zero;
+                other.transform.parent = playerGrabLocation;
+                other.transform.localRotation = Quaternion.Euler(0, 180, 0);
+                oldMonsterAI.enabled = false;
+                anim.SetTrigger("attack");
+                playerGrabbed = true;
+            }
             other.transform.localPosition = Vector3.zero;
-            other.transform.localRotation = Quaternion.Euler(0, 180, 0);
-            other.gameObject.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
-            oldMonsterAI.enabled = false;
-            anim.SetTrigger("attack");
-            playerGrabbed = true;
         }
     }
 }

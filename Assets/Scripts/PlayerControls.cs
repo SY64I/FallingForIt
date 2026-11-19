@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerControls : MonoBehaviour
 {
+    [SerializeField] CapsuleCollider playerCollision;
     [SerializeField] Rigidbody rb;
     [SerializeField] float playerSpeed = 8f;
     [SerializeField] float rotationSpeed = 10f;
@@ -193,6 +194,8 @@ public class PlayerControls : MonoBehaviour
     private IEnumerator deathByAcid()
     {
         Debug.Log("Player has collided with Goo");
+        rb.isKinematic = true;
+        playerCollision.enabled = false;
         rb.linearVelocity = Vector3.zero;
         yield return new WaitForSeconds(1.8f);
         this.playerDies();
@@ -203,6 +206,8 @@ public class PlayerControls : MonoBehaviour
         Debug.Log("Player has died");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         /*
+        rb.isKinematic = false;
+        playerCollision.enabled = true;
         rb.position = spawnPoint;
         // Cancel the death animation
         playerAnim.Play("Idle", 0, 0f);

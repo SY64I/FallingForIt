@@ -30,6 +30,9 @@ public class PlayerControls : MonoBehaviour
 
     private Vector3 gravityVelocity = Vector3.zero;
 
+    // This would likely become a static UI instance reference instead of a direct reference.
+    [SerializeField] Animator uiAnim;
+
     void OnEnable()
     {
         moveAction.action.Enable();
@@ -197,7 +200,9 @@ public class PlayerControls : MonoBehaviour
         rb.isKinematic = true;
         playerCollision.enabled = false;
         rb.linearVelocity = Vector3.zero;
-        yield return new WaitForSeconds(1.8f);
+        yield return new WaitForSeconds(1.45f);
+        if (uiAnim != null) uiAnim.SetBool("close", true); // The check for null would be removed once we have a proper UI management system
+        yield return new WaitForSeconds(0.75f);
         this.playerDies();
     }
 
@@ -211,6 +216,7 @@ public class PlayerControls : MonoBehaviour
         rb.position = spawnPoint;
         // Cancel the death animation
         playerAnim.Play("Idle", 0, 0f);
+        uiAnim.SetBool("close", false);
         enabled = true;
         */
     }

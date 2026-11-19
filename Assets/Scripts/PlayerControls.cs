@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -22,17 +23,10 @@ public class PlayerControls : MonoBehaviour
 
     Vector3 playerVelocity;
     [SerializeField] Animator playerAnim;
-<<<<<<< Updated upstream
-
-    [SerializeField] Vector3 spawnPoint;
-
-    bool isGrounded;
-=======
     
     [SerializeField] Vector3 spawnPoint;    
     [SerializeField] private AudioClip[] landingSoundClip;
     bool isGrounded = false;
->>>>>>> Stashed changes
 
     private Vector3 gravityVelocity = Vector3.zero;
 
@@ -145,7 +139,7 @@ public class PlayerControls : MonoBehaviour
         Vector3 verticalVelocity =
             Vector3.Project(velocity, up);
         
-        //Debug.Log("Velocity: " + rb.linearVelocity);
+        Debug.Log("Velocity: " + rb.linearVelocity);
 
         rb.linearVelocity = horizontalVelocity + verticalVelocity;
 
@@ -198,6 +192,12 @@ public class PlayerControls : MonoBehaviour
             playerAnim.SetTrigger("dieAcid");
             StartCoroutine(this.deathByAcid());
         }
+        else if (collision.gameObject.CompareTag("Monster"))
+        {
+            enabled = false;
+            playerAnim.SetTrigger("dieMonster");
+            StartCoroutine(this.deathByAcid());
+        }
     }
 
     private IEnumerator deathByAcid()
@@ -211,9 +211,12 @@ public class PlayerControls : MonoBehaviour
     private void playerDies()
     {
         Debug.Log("Player has died");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        /*
         rb.position = spawnPoint;
         // Cancel the death animation
         playerAnim.Play("Idle", 0, 0f);
         enabled = true;
+        */
     }
 }

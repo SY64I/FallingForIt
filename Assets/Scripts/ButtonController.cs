@@ -2,20 +2,23 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Switch))]
 public class ButtonController : MonoBehaviour
 {
     [SerializeField] Animator buttonAnim;
-    public bool buttonPressed;
+    [SerializeField] MeshRenderer buttonActivatorMesh;
+    [SerializeField] Material buttonOffMat, buttonOnMat;
+    private Switch switchState;
     private bool playerInRange;
 
     void Start()
     {
-        buttonPressed = false;
+        switchState = GetComponent<Switch>();
     }
 
     private void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.tag == "Player")
+        if (col.CompareTag("Player"))
         {
             // player in range to press button
             Debug.Log("in button range");
@@ -25,7 +28,7 @@ public class ButtonController : MonoBehaviour
 
     private void OnTriggerExit(Collider col)
     {
-        if(col.gameObject.tag == "Player")
+        if (col.CompareTag("Player"))
         {
             // player is out of range to press button
             Debug.Log("out of button range");
@@ -44,15 +47,17 @@ public class ButtonController : MonoBehaviour
 
     private void ToggleButton()
     {
-        buttonPressed = !buttonPressed;
-        if (buttonPressed) // button is pressed
+        switchState.activated = !switchState.activated;
+        buttonAnim.SetBool("buttonPressed", switchState.activated);
+
+        if (switchState.activated) // button is pressed
         {
-            buttonAnim.SetBool("buttonPressed", buttonPressed);
+            buttonActivatorMesh.material = buttonOnMat;
             Debug.Log("button is pressed");
         }
         else // button is unpressed
         {
-            buttonAnim.SetBool("buttonPressed", buttonPressed);
+            buttonActivatorMesh.material = buttonOffMat;
             Debug.Log("button is unpressed");
         }
         

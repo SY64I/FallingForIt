@@ -1271,7 +1271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3550860044379757671, guid: 8b33425098ed3bb4dab6fd29f51ec438, type: 3}
       propertyPath: m_Name
-      value: Monster 1
+      value: Monster
       objectReference: {fileID: 0}
     - target: {fileID: 3571603154626632556, guid: 8b33425098ed3bb4dab6fd29f51ec438, type: 3}
       propertyPath: player

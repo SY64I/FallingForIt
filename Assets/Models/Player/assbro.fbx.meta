@@ -3,7 +3,12 @@ guid: a04e29171a756244992a86a0c41a9857
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Astro
+    second: {fileID: 2100000, guid: 934c044faf146d846a17b9726098db77, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

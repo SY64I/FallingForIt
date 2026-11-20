@@ -93,7 +93,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 0
     - _Cutoff: 0.5
-    - _CutoffHeight: 1
+    - _CutoffHeight: 1.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -106,7 +106,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _NoiseScale: 50
-    - _NoiseStrength: 0.5
+    - _NoiseStrength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: 0

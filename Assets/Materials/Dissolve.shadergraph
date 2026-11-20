@@ -753,7 +753,7 @@
     "m_Title": "World-Space Cutoff",
     "m_Position": {
         "x": -839.199951171875,
-        "y": 780.7999267578125
+        "y": 780.800048828125
     }
 }
 
@@ -3784,7 +3784,7 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_Space": 2,
+    "m_Space": 0,
     "m_PositionSource": 0
 }
 

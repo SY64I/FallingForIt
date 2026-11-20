@@ -26,6 +26,10 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] Animator playerAnim;
     [SerializeField] Vector3 spawnPoint;
 
+
+    [SerializeField] bool GodMode = false;
+
+
     bool isGrounded;
 
     private Vector3 gravityVelocity = Vector3.zero;
@@ -180,6 +184,10 @@ public class PlayerControls : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (GodMode)
+        {
+            return;
+        }
         if (collision.gameObject.CompareTag("Goo"))
         {
             enabled = false;

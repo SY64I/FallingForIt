@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerControls : MonoBehaviour
 {
-    [SerializeField] CharacterController controller;
+    [SerializeField] CapsuleCollider playerCollision;
+    [SerializeField] Rigidbody rb;
     [SerializeField] float playerSpeed = 8f;
-    [SerializeField] float gravity = -50f;
     [SerializeField] float rotationSpeed = 10f;
     [SerializeField] float jumpHeight = 2f;
     [SerializeField] float jumpBufferTime = 0.12f;
@@ -18,23 +19,23 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] Transform cameraTransform;
 
     [SerializeField] Transform groundCheck;
-    [SerializeField] float groundDistance = 0.2f;
+    [SerializeField] float groundDistance = 0.3f;
     [SerializeField] LayerMask groundMask;
 
-<<<<<<< Updated upstream
     Vector3 playerVelocity;
-=======
     [SerializeField] Animator playerAnim;
-
     [SerializeField] Vector3 spawnPoint;
 
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
+
     [SerializeField] bool GodMode = false;
 
->>>>>>> Stashed changes
+
     bool isGrounded;
+
+    private Vector3 gravityVelocity = Vector3.zero;
+
+    // This would likely become a static UI instance reference instead of a direct reference.
+    [SerializeField] Animator uiAnim;
 
     void OnEnable()
     {
@@ -48,75 +49,137 @@ public class PlayerControls : MonoBehaviour
         jumpAction.action.Disable();
     }
 
+    Vector2 moveInput;
+
     void Update()
     {
-        // Check if player is touching the ground
-        isGrounded = controller.isGrounded;
         if (jumpAction.action.WasPressedThisFrame())
         {
             jumpPressedTime = Time.time;
+            Debug.Log("JUMP BUTTON PRESSED");
         }
-        // Jump
-        if (isGrounded && Time.time - jumpPressedTime <= jumpBufferTime)
+
+        moveInput = moveAction.action.ReadValue<Vector2>();
+    }
+
+
+    void FixedUpdate()
+    {
+        // Prevent physics collisions from making the player spin
+        rb.angularVelocity = Vector3.zero;
+        
+        Vector3 gravity = Physics.gravity;
+        if (gravity.sqrMagnitude < 0.001f) return;
+
+        Vector3 up = -gravity.normalized;
+
+        isGrounded = CheckGrounded(up);
+
+        Vector3 velocity = rb.linearVelocity;
+        float verticalSpeed = Vector3.Dot(velocity, up);
+
+        // Stop downward movement while grounded
+        if (isGrounded && verticalSpeed < 0f)
         {
-            playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            velocity -= up * verticalSpeed;
+        }
+
+        // Jump when grounded and the button was recently pressed
+        if (isGrounded &&
+            Time.time - jumpPressedTime <= jumpBufferTime)
+        {
+            Debug.Log("JUMP TRIGGERED");
+
+            float jumpSpeed =
+                Mathf.Sqrt(2f * jumpHeight * gravity.magnitude);
+
+            velocity += up * jumpSpeed;
 
             jumpPressedTime = float.NegativeInfinity;
+            playerAnim.SetTrigger("jump");
         }
-        /*
-        isGrounded = Physics.CheckSphere(
-            groundCheck.position,
-            groundDistance,
-            groundMask
-        );
-        */
-
-        if (isGrounded) { Debug.Log("grounded"); }
-        else { Debug.Log("in air"); }
-
-        // WASD movement
-        Vector2 input = moveAction.action.ReadValue<Vector2>();
-
-        // Get camera directions
-        Vector3 cameraForward = cameraTransform.forward;
-        Vector3 cameraRight = cameraTransform.right;
-
-        // Ignore camera's vertical tilt
-        cameraForward.y = 0f;
-        cameraRight.y = 0f;
-
-        cameraForward.Normalize();
-        cameraRight.Normalize();
 
         // Camera-relative movement
-        Vector3 movement = cameraForward * input.y + cameraRight * input.x;
+        Vector3 cameraForward =
+            Vector3.ProjectOnPlane(cameraTransform.forward, up).normalized;
+
+        Vector3 cameraRight =
+            Vector3.ProjectOnPlane(cameraTransform.right, up).normalized;
+
+        if (cameraForward.sqrMagnitude < 0.001f)
+        {
+            cameraForward =
+                Vector3.ProjectOnPlane(cameraTransform.up, up).normalized;
+        }
+
+        Vector3 movement =
+            cameraForward * moveInput.y + cameraRight * moveInput.x;
+
         movement = Vector3.ClampMagnitude(movement, 1f);
 
-        // Rotate player to face movement direction
+        // Rotate toward movement direction
         if (movement.sqrMagnitude > 0.01f)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(movement);
+            Quaternion targetRotation =
+                Quaternion.LookRotation(movement, up);
 
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRotation,
-                rotationSpeed * Time.deltaTime
+            rb.MoveRotation(
+                Quaternion.Slerp(
+                    rb.rotation,
+                    targetRotation,
+                    rotationSpeed * Time.fixedDeltaTime
+                )
             );
+
+            playerAnim.SetBool("running", true);
         }
-
-        controller.Move(movement * playerSpeed * Time.deltaTime);
-
-        // Keep player on the ground
-        if (isGrounded && playerVelocity.y < 0)
+        else
         {
-            playerVelocity.y = -2f;
+            playerAnim.SetBool("running", false);
         }
 
-        // Gravity
-        playerVelocity.y += gravity * Time.deltaTime;
+        // Set movement while preserving velocity along gravity
+        Vector3 horizontalVelocity =
+            movement * playerSpeed;
 
-        controller.Move(playerVelocity * Time.deltaTime);
+        Vector3 verticalVelocity =
+            Vector3.Project(velocity, up);
+        
+        Debug.Log("Velocity: " + rb.linearVelocity);
 
+        rb.linearVelocity = horizontalVelocity + verticalVelocity;
+
+        // Apply gravity exactly once
+        rb.AddForce(gravity, ForceMode.Acceleration);
+
+        playerAnim.SetBool("isGrounded", isGrounded);
+    }
+
+    public void AlignPlayerToGravity()
+    {
+        if (Physics.gravity.sqrMagnitude < 0.001f)
+            return;
+
+        Vector3 newUp = -Physics.gravity.normalized;
+
+        // Rotate the player to match the new gravity direction
+        Quaternion delta =
+            Vector3.Dot(transform.up, newUp) < -0.999f
+            ? Quaternion.AngleAxis(180f, transform.forward)
+            : Quaternion.FromToRotation(transform.up, newUp);
+
+        rb.rotation = delta * rb.rotation;
+    }
+
+    bool CheckGrounded(Vector3 up)
+    {
+        return Physics.Raycast(
+            groundCheck.position,
+            -up,
+            groundDistance,
+            groundMask,
+            QueryTriggerInteraction.Ignore
+        );
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -131,22 +194,38 @@ public class PlayerControls : MonoBehaviour
             playerAnim.SetTrigger("dieAcid");
             StartCoroutine(this.deathByAcid());
         }
+        else if (collision.gameObject.CompareTag("Monster"))
+        {
+            enabled = false;
+            playerAnim.SetTrigger("dieMonster");
+            StartCoroutine(this.deathByAcid());
+        }
     }
 
     private IEnumerator deathByAcid()
     {
         Debug.Log("Player has collided with Goo");
+        rb.isKinematic = true;
+        playerCollision.enabled = false;
         rb.linearVelocity = Vector3.zero;
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.45f);
+        if (uiAnim != null) uiAnim.SetBool("close", true); // The check for null would be removed once we have a proper UI management system
+        yield return new WaitForSeconds(0.75f);
         this.playerDies();
     }
 
     private void playerDies()
     {
         Debug.Log("Player has died");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        /*
+        rb.isKinematic = false;
+        playerCollision.enabled = true;
         rb.position = spawnPoint;
         // Cancel the death animation
         playerAnim.Play("Idle", 0, 0f);
+        uiAnim.SetBool("close", false);
         enabled = true;
+        */
     }
 }

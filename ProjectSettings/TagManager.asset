@@ -4,18 +4,18 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Assbro
   - Goo
+  - Monster
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Sensor
+  - MonsterCollision
+  - MonsterDetection
   - 
   - 
   - 

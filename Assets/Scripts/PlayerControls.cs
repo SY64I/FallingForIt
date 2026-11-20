@@ -28,6 +28,11 @@ public class PlayerControls : MonoBehaviour
 
     [SerializeField] Vector3 spawnPoint;
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+    [SerializeField] bool GodMode = false;
+
 >>>>>>> Stashed changes
     bool isGrounded;
 
@@ -116,6 +121,10 @@ public class PlayerControls : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (GodMode)
+        {
+            return;
+        }
         if (collision.gameObject.CompareTag("Goo"))
         {
             enabled = false;

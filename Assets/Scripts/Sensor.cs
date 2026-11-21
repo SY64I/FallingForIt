@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Switch))]
 public class Sensor : MonoBehaviour
 {
-    private Switch switchState;
+    [SerializeField] Switch switchState;
 
     [SerializeField] LineRenderer sensorLaser;
     [SerializeField] Transform laserStart, laserEnd;
@@ -12,7 +12,7 @@ public class Sensor : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        switchState = GetComponent<Switch>();
+        //switchState = GetComponent<Switch>();
         sensorLaser = GetComponent<LineRenderer>();
 
         sensorLaser.positionCount = 2;

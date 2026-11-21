@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aded44b92edee9f44a5dfa3452e7e846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sensor
+  switchState: {fileID: 3199145964032324324}
   sensorLaser: {fileID: 8822545466540750240}
   laserStart: {fileID: 5075196472063106261}
   laserEnd: {fileID: 2572850809388367674}

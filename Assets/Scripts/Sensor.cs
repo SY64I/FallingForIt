@@ -23,6 +23,7 @@ public class Sensor : MonoBehaviour
     {
         if (!switchState.activated)
         {
+            sensorLaser.enabled = true;
             sensorLaser.SetPosition(0, laserStart.position);
             sensorLaser.SetPosition(1, laserEnd.position);
 

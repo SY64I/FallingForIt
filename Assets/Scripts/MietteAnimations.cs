@@ -18,10 +18,12 @@ public class MietteAnimations : MonoBehaviour
     [SerializeField] EnemyBehavior oldMonsterAI;
     bool playerGrabbed;
 
+    [SerializeField] private Transform player;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -46,6 +48,11 @@ public class MietteAnimations : MonoBehaviour
             anim.SetBool("isWalking", false);
         }
 
+        if (playerGrabbed && !GameManager.instance.respawning)
+        {
+            player.transform.localPosition = Vector3.zero;
+        }
+
     }
 
     bool CheckGrounded(Vector3 up)
@@ -66,13 +73,21 @@ public class MietteAnimations : MonoBehaviour
             if (!playerGrabbed)
             {
                 rb.linearVelocity = Vector3.zero;
-                other.transform.parent = playerGrabLocation;
-                other.transform.localRotation = Quaternion.Euler(0, 180, 0);
+                player.parent = playerGrabLocation;
+                player.localRotation = Quaternion.Euler(0, 180, 0);
                 oldMonsterAI.enabled = false;
                 anim.SetTrigger("attack");
                 playerGrabbed = true;
             }
-            other.transform.localPosition = Vector3.zero;
+
         }
+    }
+
+    public void Respawn()
+    {
+        playerGrabbed = false;
+        playerGrabLocation.DetachChildren();
+        oldMonsterAI.enabled = true;
+        anim.Play("Idle", 0, 0f);
     }
 }

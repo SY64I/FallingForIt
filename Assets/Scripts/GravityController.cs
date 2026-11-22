@@ -9,7 +9,7 @@ public class GravityController : MonoBehaviour
     private float gravity = 9.81f;
     [SerializeField] private float gravityStrength = 2f;
     [SerializeField] private PlayerControls playerController;
-
+    [SerializeField] private AudioClip gravitySoundClip;
 
     private void Start()
     {
@@ -46,6 +46,9 @@ public class GravityController : MonoBehaviour
             return;
         }
 
+        // play gravity sound effect
+        SoundFXManager.instance.PlaySoundFXClip(gravitySoundClip, transform, 1f);
+        
         Physics.gravity = newGravity * gravity * gravityStrength;
 
         if (playerController != null)

@@ -25,7 +25,7 @@ public class PlayerControls : MonoBehaviour
     Vector3 playerVelocity;
     [SerializeField] Animator playerAnim;
     [SerializeField] Vector3 spawnPoint;
-
+    [SerializeField] private AudioClip[] landingSoundClip;
 
     [SerializeField] bool GodMode = false;
 
@@ -89,6 +89,8 @@ public class PlayerControls : MonoBehaviour
     {
         if (!isDead)
         {
+            bool oldGrounded = isGrounded;
+
             // Prevent physics collisions from making the player spin
             rb.angularVelocity = Vector3.zero;
 
@@ -175,6 +177,14 @@ public class PlayerControls : MonoBehaviour
             rb.AddForce(gravity, ForceMode.Acceleration);
 
             playerAnim.SetBool("isGrounded", isGrounded);
+
+            if ((oldGrounded == false) && (isGrounded == true))
+            {
+                // just landed on floor, play sound
+                int random = Random.Range(0, landingSoundClip.Length);
+                var clip = landingSoundClip[random];
+                SoundFXManager.instance.PlaySoundFXClip(clip, transform, 1f);
+            }
         }
     }
 

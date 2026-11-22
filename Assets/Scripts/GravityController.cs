@@ -19,7 +19,7 @@ public class GravityController : MonoBehaviour
     private void Update()
     {
         if (Keyboard.current != null &&
-            Keyboard.current.eKey.wasPressedThisFrame)
+            Keyboard.current.eKey.wasPressedThisFrame && !playerController.isDead)
         {
             Debug.Log("E key detected!");
             ShiftGravity();

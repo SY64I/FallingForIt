@@ -6,6 +6,8 @@ public class Checkpoint : MonoBehaviour
     public bool oneUseCheckpoint;
     bool previouslyActivated;
 
+    [SerializeField] Color editorCheckpointColour;
+    BoxCollider col;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,5 +24,15 @@ public class Checkpoint : MonoBehaviour
             }
 
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = editorCheckpointColour;
+        Gizmos.matrix = transform.localToWorldMatrix;
+        col = GetComponent<BoxCollider>();
+
+        Gizmos.DrawCube(col.center, col.size);
+
     }
 }

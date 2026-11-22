@@ -2091,6 +2091,10 @@ PrefabInstance:
       value: Button (1)
       objectReference: {fileID: 0}
     - target: {fileID: 5951640554687895815, guid: 9a836f495f776c64096462ed647c3358, type: 3}
+      propertyPath: activated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5951640554687895815, guid: 9a836f495f776c64096462ed647c3358, type: 3}
       propertyPath: resetUnlessNextCheckpoint
       value: 1
       objectReference: {fileID: 0}
@@ -2223,6 +2227,10 @@ PrefabInstance:
     - target: {fileID: 3713356947934888260, guid: 9a836f495f776c64096462ed647c3358, type: 3}
       propertyPath: m_Name
       value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 5951640554687895815, guid: 9a836f495f776c64096462ed647c3358, type: 3}
+      propertyPath: activated
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5951640554687895815, guid: 9a836f495f776c64096462ed647c3358, type: 3}
       propertyPath: resetUnlessNextCheckpoint

@@ -14063,6 +14063,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 933994969077097613, guid: e891839aeec4f6e4abb5cf5d4fc471d6, type: 3}
   m_PrefabInstance: {fileID: 1474238995}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1479969173
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6719524061603304237, guid: 1cab342c663593348bb40b0f08095549, type: 3}
+      propertyPath: m_Name
+      value: 'SoundFXManager '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7555928716207960424, guid: 1cab342c663593348bb40b0f08095549, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7555928716207960424, guid: 1cab342c663593348bb40b0f08095549, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.55835
+      objectReference: {fileID: 0}
+    - target: {fileID: 7555928716207960424, guid: 1cab342c663593348bb40b0f08095549, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -19.71923
+      objectReference: {fileID: 0}
+    - target: {fileID: 7555928716207960424, guid: 1cab342c663593348bb40b0f08095549, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7555928716207960424, guid: 1cab342c663593348bb40b0f08095549, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7555928716207960424, guid: 1cab342c663593348bb40b0f08095549, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7555928716207960424, guid: 1cab342c663593348bb40b0f08095549, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7555928716207960424, guid: 1cab342c663593348bb40b0f08095549, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7555928716207960424, guid: 1cab342c663593348bb40b0f08095549, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7555928716207960424, guid: 1cab342c663593348bb40b0f08095549, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1cab342c663593348bb40b0f08095549, type: 3}
 --- !u!1001 &1497966721
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15006,51 +15063,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1611277565219235798, guid: ff6cd9da9502d2d4795057fb19e77ca9, type: 3}
   m_PrefabInstance: {fileID: 1596786243}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1599116733
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1599116735}
-  - component: {fileID: 1599116734}
-  m_Layer: 0
-  m_Name: SoundFXManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1599116734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599116733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24005c7c08091c12eb63f92b5a277778, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SoundFXManager
-  soundFXObject: {fileID: 6888029896727576927, guid: a918604ef49c3f889bc860ed02ab545f, type: 3}
---- !u!4 &1599116735
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599116733}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 4.08305, z: 3.49908}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1624031281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20092,5 +20104,5 @@ SceneRoots:
   - {fileID: 734897264}
   - {fileID: 56714740}
   - {fileID: 93258839}
-  - {fileID: 1599116735}
   - {fileID: 2100865941}
+  - {fileID: 1479969173}

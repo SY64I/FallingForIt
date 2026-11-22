@@ -131,7 +131,11 @@ MonoBehaviour:
   playerAnim: {fileID: 3162689435623281470}
   spawnPoint: {x: 0, y: 0, z: 0}
   GodMode: 0
-  uiAnim: {fileID: 0}
+  edgeHeightAmount: 0
+  edgeHeightMax: 1.5
+  edgeHeightMin: -2
+  edgeHeightChangeSpeed: 3
+  diedToGoo: 0
 --- !u!114 &7640335414305107215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5885973266490796727}
+  - component: {fileID: 8566097131754489207}
   - component: {fileID: 4250898797159398763}
   m_Layer: 0
   m_Name: Cube
@@ -243,6 +248,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7040470990136836643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8566097131754489207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963976073063438674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c30cfd5847695b04597a6437916b9910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DissolveControl
+  playerControl: {fileID: 1408803228283955799}
 --- !u!137 &4250898797159398763
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -422,6 +440,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5518247296207197489}
+  - component: {fileID: 8065062557045565770}
   - component: {fileID: 4283229430784604329}
   - component: {fileID: 2526810220217080015}
   m_Layer: 0
@@ -446,6 +465,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7040470990136836643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8065062557045565770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2610348751749820670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c30cfd5847695b04597a6437916b9910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DissolveControl
+  playerControl: {fileID: 1408803228283955799}
 --- !u!33 &4283229430784604329
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -764,6 +796,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 598405422196733277}
+  - component: {fileID: 3347436223436396652}
   - component: {fileID: 2078463649608991577}
   - component: {fileID: 4476577376808811307}
   m_Layer: 0
@@ -788,6 +821,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4137928020589479541}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3347436223436396652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5064566759068160988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c30cfd5847695b04597a6437916b9910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DissolveControl
+  playerControl: {fileID: 1408803228283955799}
 --- !u!33 &2078463649608991577
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -36,6 +36,11 @@ public class PlayerControls : MonoBehaviour
 
     bool isDead = false;
 
+    [HideInInspector] public float edgeHeightAmount;
+    public float edgeHeightMax = 1.5f;
+    [SerializeField] float edgeHeightMin = -2f;
+    [SerializeField] float edgeHeightChangeSpeed = 1f;
+    [HideInInspector] public bool diedToGoo;
 
     void OnEnable()
     {
@@ -51,6 +56,11 @@ public class PlayerControls : MonoBehaviour
 
     Vector2 moveInput;
 
+    private void Start()
+    {
+        edgeHeightAmount = edgeHeightMax;
+    }
+
     void Update()
     {
         if (!isDead)
@@ -62,6 +72,16 @@ public class PlayerControls : MonoBehaviour
             }
 
             moveInput = moveAction.action.ReadValue<Vector2>();
+        }
+        else
+        {
+            if (diedToGoo)
+            {
+                if (edgeHeightAmount > edgeHeightMin)
+                {
+                    edgeHeightAmount -= Time.deltaTime * edgeHeightChangeSpeed;
+                }
+            }
         }
 
     }
@@ -196,6 +216,7 @@ public class PlayerControls : MonoBehaviour
             if (collision.gameObject.CompareTag("Goo"))
             {
                 playerAnim.SetTrigger("dieAcid");
+                diedToGoo = true;
                 isDead = true;
             }
             else if (collision.gameObject.CompareTag("Monster"))
@@ -224,6 +245,8 @@ public class PlayerControls : MonoBehaviour
         //transform.position = GameManager.instance.playerSpawnPoint;
         // Cancel the death animation
         playerAnim.Play("Idle", 0, 0f);
+        diedToGoo = false;
+        edgeHeightAmount = edgeHeightMax;
         playerCollision.enabled = true;
         isDead = false;
     }

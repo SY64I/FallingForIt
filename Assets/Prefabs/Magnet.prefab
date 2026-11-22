@@ -421,6 +421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Magnet
   connectedSwitch: {fileID: 0}
   magnetLight: {fileID: 7172832074967121082}
+  magnetSoundClip: {fileID: 8300000, guid: d235647bf4b6c75b29c5548684c179c4, type: 3}
 --- !u!65 &901065934426190670
 BoxCollider:
   m_ObjectHideFlags: 0

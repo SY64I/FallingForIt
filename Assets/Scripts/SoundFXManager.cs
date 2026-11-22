@@ -34,6 +34,5 @@ public class SoundFXManager : MonoBehaviour
 
         // destroy the clip after it is done playing
         Destroy(audioSource.gameObject, clipLength);
-
     }
 }

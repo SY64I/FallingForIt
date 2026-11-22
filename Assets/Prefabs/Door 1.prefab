@@ -1006,6 +1006,7 @@ MonoBehaviour:
   - {fileID: 6735760759040414772}
   - {fileID: 8411210676794144868}
   - {fileID: 5002087441929600939}
+  doorSoundClip: {fileID: 8300000, guid: cc6593b4718d7b7e8bf903053b5703ef, type: 3}
 --- !u!1 &5102553167753734025
 GameObject:
   m_ObjectHideFlags: 0

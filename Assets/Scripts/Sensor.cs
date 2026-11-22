@@ -8,6 +8,7 @@ public class Sensor : MonoBehaviour
     [SerializeField] LineRenderer sensorLaser;
     [SerializeField] Transform laserStart, laserEnd;
     [SerializeField] LayerMask layersToDetect;
+    [SerializeField] private AudioClip laserSoundClip;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,6 +38,8 @@ public class Sensor : MonoBehaviour
                 if (hit.collider.CompareTag("Player") || hit.collider.CompareTag("Monster"))
                 {
                     Debug.Log("Activate sensor");
+                    // play laser sound effect
+                    SoundFXManager.instance.PlaySoundFXClip(laserSoundClip, transform, 0.3f);
                     switchState.activated = true;
                 }
             }

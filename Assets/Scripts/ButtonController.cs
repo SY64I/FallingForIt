@@ -8,6 +8,7 @@ public class ButtonController : MonoBehaviour
     [SerializeField] Animator buttonAnim;
     [SerializeField] MeshRenderer buttonActivatorMesh;
     [SerializeField] Material buttonOffMat, buttonOnMat;
+    [SerializeField] private AudioClip buttonSoundClip;
     private Switch switchState;
     private bool playerInRange;
 
@@ -38,8 +39,10 @@ public class ButtonController : MonoBehaviour
 
     void Update()
     {
-        if (playerInRange && Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame) // if player is within range and pressing interact key
+        if (playerInRange && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame) // if player is within range and pressing interact key
         {
+            // play button sound effect
+            SoundFXManager.instance.PlaySoundFXClip(buttonSoundClip, transform, 1f);
             ToggleButton();
         }
 

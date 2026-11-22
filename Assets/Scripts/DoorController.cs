@@ -13,6 +13,7 @@ public class DoorController : MonoBehaviour
     [SerializeField] GameObject[] lightParentObjects;
     // Note: This implementation assumes there are exactly 10 lights.
     [SerializeField] ActivatedLight[] lights;
+    [SerializeField] private AudioClip doorSoundClip;
 
     private void Start()
     {
@@ -53,6 +54,7 @@ public class DoorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool oldOpen = isOpen;
         // NOTE: I've set this up with a predefinte amount of switch amounts due to my plans to add door lights to the door models to indicate how many switches need to be pressed
         switch (numberOfSwitches)
         {
@@ -89,6 +91,13 @@ public class DoorController : MonoBehaviour
                 break;
         }
 
+        if ((oldOpen == false) && (isOpen == true))
+        {
+            // door just opened, play sound
+            SoundFXManager.instance.PlaySoundFXClip(doorSoundClip, transform, 0.3f);
+        }
+
         anim.SetBool("open", isOpen);
+
     }
 }

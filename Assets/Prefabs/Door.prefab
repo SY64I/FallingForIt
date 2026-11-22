@@ -157,5 +157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54127b22c0f92f8fcaef35eb6cc0d840, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorController
-  buttonController: {fileID: 0}
+  connectedSwitches: []
   door: {fileID: 4911558186731186950}
+  lightParentObjects: []
+  lights: []
+  doorSoundClip: {fileID: 8300000, guid: cc6593b4718d7b7e8bf903053b5703ef, type: 3}

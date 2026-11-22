@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Goo
   - Monster
+  - OutOfBounds
   layers:
   - Default
   - TransparentFX

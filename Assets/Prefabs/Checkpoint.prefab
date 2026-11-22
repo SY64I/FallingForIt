@@ -49,6 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
   playerSpawnPoint: {fileID: 2006648147215899204}
   monsterSpawnPoint: {fileID: 5296948686241289290}
+  oneUseCheckpoint: 0
+  editorCheckpointColour: {r: 0.3160377, g: 1, b: 0.33131683, a: 0.2509804}
 --- !u!65 &6152071848666303528
 BoxCollider:
   m_ObjectHideFlags: 0

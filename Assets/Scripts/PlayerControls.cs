@@ -27,20 +27,24 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] Vector3 spawnPoint;
     [SerializeField] private AudioClip[] landingSoundClip;
 
-    [SerializeField] bool GodMode = false;
+    public bool GodMode = false;
 
     bool canMove;
     bool isGrounded;
 
     private Vector3 gravityVelocity = Vector3.zero;
 
-    bool isDead = false;
+    public bool isDead = false;
+    bool hasDied = false;
 
     [HideInInspector] public float edgeHeightAmount;
     public float edgeHeightMax = 1.5f;
     [SerializeField] float edgeHeightMin = -2f;
     [SerializeField] float edgeHeightChangeSpeed = 1f;
     [HideInInspector] public bool diedToGoo;
+    bool diedToFalling;
+
+    [SerializeField] GameObject camRigObj;
 
     void OnEnable()
     {
@@ -83,6 +87,19 @@ public class PlayerControls : MonoBehaviour
                 }
             }
         }
+        if (isDead && !hasDied)
+        {
+            Debug.Log("Player has died");
+            if (!diedToFalling)
+            {
+                rb.isKinematic = true;
+                playerCollision.enabled = false;
+                rb.linearVelocity = Vector3.zero;
+            }
+            GameManager.instance.StartCoroutine(GameManager.instance.DeathSequence());
+            hasDied = true;
+        }
+
 
     }
     void FixedUpdate()
@@ -217,38 +234,41 @@ public class PlayerControls : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!isDead)
+        if (!isDead && !GodMode)
         {
-            if (GodMode)
-            {
-                return;
-            }
             if (collision.gameObject.CompareTag("Goo"))
             {
                 playerAnim.SetTrigger("dieAcid");
                 diedToGoo = true;
                 isDead = true;
             }
-            else if (collision.gameObject.CompareTag("Monster"))
-            {
-                playerAnim.SetTrigger("dieMonster");
-                isDead = true;
-            }
+        }
+    }
 
-            if (isDead)
-            {
-                Debug.Log("Player has died");
-                rb.isKinematic = true;
-                playerCollision.enabled = false;
-                rb.linearVelocity = Vector3.zero;
-                GameManager.instance.StartCoroutine(GameManager.instance.DeathSequence());
-            }
+    public void DeathByMonster()
+    {
+        if (!isDead)
+        {
+            playerAnim.SetTrigger("dieMonster");
+            isDead = true;
+        }
+    }
+
+    public void DeathByFalling()
+    {
+        if (!isDead)
+        {
+            playerAnim.SetTrigger("dieFall");
+            camRigObj.SetActive(false);
+            isDead = true;
+            diedToFalling = true;
         }
     }
 
     public void Respawn()
     {
         transform.parent = null;
+        rb.linearVelocity = Vector3.zero;
         rb.isKinematic = false;
         rb.position = GameManager.instance.playerSpawnPoint;
         AlignPlayerToGravity();
@@ -256,8 +276,11 @@ public class PlayerControls : MonoBehaviour
         // Cancel the death animation
         playerAnim.Play("Idle", 0, 0f);
         diedToGoo = false;
+        diedToFalling = false;
+        camRigObj.SetActive(true);
         edgeHeightAmount = edgeHeightMax;
         playerCollision.enabled = true;
         isDead = false;
+        hasDied = false;
     }
 }

@@ -19,11 +19,12 @@ public class MietteAnimations : MonoBehaviour
     bool playerGrabbed;
 
     [SerializeField] private Transform player;
+    PlayerControls playerControls;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        playerControls = player.GetComponent<PlayerControls>();
     }
 
     // Update is called once per frame
@@ -70,9 +71,10 @@ public class MietteAnimations : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (!playerGrabbed)
+            if (!playerGrabbed && !playerControls.GodMode)
             {
                 rb.linearVelocity = Vector3.zero;
+                playerControls.DeathByMonster();
                 player.parent = playerGrabLocation;
                 player.localRotation = Quaternion.Euler(0, 180, 0);
                 oldMonsterAI.enabled = false;

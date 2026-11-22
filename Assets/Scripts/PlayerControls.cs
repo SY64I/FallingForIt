@@ -26,7 +26,7 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] Animator playerAnim;
     [SerializeField] Vector3 spawnPoint;
     [SerializeField] private AudioClip[] landingSoundClip;
-
+    [SerializeField] private AudioClip acidSoundClip;
     public bool GodMode = false;
 
     bool canMove;
@@ -239,6 +239,8 @@ public class PlayerControls : MonoBehaviour
             if (collision.gameObject.CompareTag("Goo"))
             {
                 playerAnim.SetTrigger("dieAcid");
+                // play laser sound effect
+                SoundFXManager.instance.PlaySoundFXClip(acidSoundClip, transform, 0.4f);
                 diedToGoo = true;
                 isDead = true;
             }

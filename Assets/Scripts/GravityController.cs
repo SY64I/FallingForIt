@@ -13,7 +13,7 @@ public class GravityController : MonoBehaviour
 
     private void Start()
     {
-        Physics.gravity = Vector3.down * gravity * gravityStrength;
+        ResetGravityDirection();
     }
 
     private void Update()
@@ -55,5 +55,10 @@ public class GravityController : MonoBehaviour
 
         Debug.Log("New gravity: " + Physics.gravity);
         Debug.Log("GravityController successfully applied gravity.");
+    }
+
+    public void ResetGravityDirection()
+    {
+        Physics.gravity = Vector3.down * gravity * gravityStrength;
     }
 }

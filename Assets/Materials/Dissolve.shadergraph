@@ -752,8 +752,8 @@
     "m_ObjectId": "08938748824b45939aaa0c1d7bd3f9b5",
     "m_Title": "World-Space Cutoff",
     "m_Position": {
-        "x": -839.199951171875,
-        "y": 780.800048828125
+        "x": -839.0,
+        "y": 783.0
     }
 }
 

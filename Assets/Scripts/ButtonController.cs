@@ -42,12 +42,7 @@ public class ButtonController : MonoBehaviour
         {
             ToggleButton();
         }
-        
-    }
 
-    private void ToggleButton()
-    {
-        switchState.activated = !switchState.activated;
         buttonAnim.SetBool("buttonPressed", switchState.activated);
 
         if (switchState.activated) // button is pressed
@@ -60,7 +55,12 @@ public class ButtonController : MonoBehaviour
             buttonActivatorMesh.material = buttonOffMat;
             Debug.Log("button is unpressed");
         }
-        
+
+    }
+
+    private void ToggleButton()
+    {
+        switchState.activated = !switchState.activated;
     }
 
 }

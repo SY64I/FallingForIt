@@ -615,6 +615,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3073
   oldMonsterAI: {fileID: 6588581243806587382}
+  mietteIdleSoundClips:
+  - {fileID: 8300000, guid: acda19e48e761da65ba93ef1281beaef, type: 3}
+  - {fileID: 8300000, guid: 06ca29d3d126d9cd98d78afdfd5e1045, type: 3}
+  - {fileID: 8300000, guid: 392b85cff8aa2ebcf86ce375aeefa4c0, type: 3}
+  - {fileID: 8300000, guid: ad91fb5303b77dbebb0de7a403ac8911, type: 3}
+  - {fileID: 8300000, guid: 010742cdf5e9a7c83a879303e9df727e, type: 3}
+  mietteChaseSoundClips:
+  - {fileID: 8300000, guid: b6576ef53039ddd6589c240152514d8a, type: 3}
+  - {fileID: 8300000, guid: 97065f4cf66b1354da55d33425d184b4, type: 3}
+  - {fileID: 8300000, guid: aea41d421d20b9ce296b6a549319f0e4, type: 3}
+  - {fileID: 8300000, guid: 8040720e75f1e94d0b73af4af4cfe469, type: 3}
+  counterTime: 6
   player: {fileID: 0}
 --- !u!114 &6588581243806587382
 MonoBehaviour:
@@ -1719,6 +1731,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8141396585034094053}
   - component: {fileID: 6603659185514720728}
+  - component: {fileID: 6777471492227009808}
   m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
@@ -1765,3 +1778,28 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6777471492227009808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8948859796985951101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c55fd52bc0a0f489ea55bf0f4de19009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MiettestepSFX
+  miettestepsSoundClip:
+  - {fileID: 8300000, guid: a95bc781ca85ca04abec9abbcdf1ab36, type: 3}
+  - {fileID: 8300000, guid: 456a79e9214ecdcbda531f940b7860af, type: 3}
+  - {fileID: 8300000, guid: 2ab3089d4f8a7228089bbb240ad8e4c8, type: 3}
+  - {fileID: 8300000, guid: 0aaebc455c8841bee9d5af47cedf12c8, type: 3}
+  - {fileID: 8300000, guid: 22894b781ba79a8c79edf1e65e0825de, type: 3}
+  - {fileID: 8300000, guid: 5e0640ec667fbfd48a5768dd5139aa4a, type: 3}
+  - {fileID: 8300000, guid: d2cc44944a2469bdb8541553f8a4395c, type: 3}
+  - {fileID: 8300000, guid: 4b3d9daa9272333c99b55fc7a71ad632, type: 3}
+  miettekillsSoundClip:
+  - {fileID: 8300000, guid: 75d506b542e2a24469d8afd7e067cf94, type: 3}
+  - {fileID: 8300000, guid: 3801f201ca741650baeec5ca861bab60, type: 3}
+  - {fileID: 8300000, guid: 432197e60746a216885fa4a28d038a9f, type: 3}

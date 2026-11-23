@@ -284,8 +284,12 @@ public class PlayerControls : MonoBehaviour
     {
         if (!isDead && !GodMode)
         {
-<<<<<<< Updated upstream
-            return;
+            if (collision.gameObject.CompareTag("Goo"))
+            {
+                playerAnim.SetTrigger("dieAcid");
+                diedToGoo = true;
+                isDead = true;
+            }
         }
     }
 
@@ -294,33 +298,7 @@ public class PlayerControls : MonoBehaviour
         if (!isDead)
         {
             playerAnim.SetTrigger("dieMonster");
-            StartCoroutine(this.deathByAcid());
-=======
-            if (GodMode)
-            {
-                //return;
-            }
-            if (collision.gameObject.CompareTag("Goo") && !GodMode)
-            {
-                playerAnim.SetTrigger("dieAcid");
-                diedToGoo = true;
-                isDead = true;
-            }
-            else if (collision.gameObject.CompareTag("Monster"))
-            {
-                playerAnim.SetTrigger("dieMonster");
-                isDead = true;
-            }
-
-            if (isDead)
-            {
-                Debug.Log("Player has died");
-                rb.isKinematic = true;
-                playerCollision.enabled = false;
-                rb.linearVelocity = Vector3.zero;
-                GameManager.instance.StartCoroutine(GameManager.instance.DeathSequence());
-            }
->>>>>>> Stashed changes
+            isDead = true;
         }
     }
 

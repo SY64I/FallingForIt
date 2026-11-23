@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject player, monster;
     PlayerControls playerControls;
-    GravityController gravityControl;
+    [SerializeField] GravityController gravityControl;
     Animator monsterAnim;
 
     // It'd be nice to have this script as a reference to an entire enemy AI lol
@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
         monsterRotation = monster.transform.rotation;
 
         playerControls = player.GetComponent<PlayerControls>();
-        gravityControl = player.GetComponent<GravityController>();
         monsterAnim = monster.GetComponentInChildren<Animator>();
         monsterAnimationController = monster.GetComponent<MietteAnimations>();
     }

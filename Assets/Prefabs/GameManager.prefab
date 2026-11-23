@@ -29,7 +29,8 @@ Transform:
   m_LocalPosition: {x: 0.50764, y: -0.20262, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2735306964426133009}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9150397991714765463
@@ -48,4 +49,55 @@ MonoBehaviour:
   monsterSpawnPoint: {x: 0, y: 0, z: 0}
   player: {fileID: 0}
   monster: {fileID: 0}
+  gravityControl: {fileID: 1448005848036694110}
   uiAnim: {fileID: 0}
+  respawning: 0
+--- !u!1 &4171849693690163019
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2735306964426133009}
+  - component: {fileID: 1448005848036694110}
+  m_Layer: 0
+  m_Name: GravityController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2735306964426133009
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4171849693690163019}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.80850005, y: 12.70262, z: 13.42908}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2956718563677729479}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1448005848036694110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4171849693690163019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf154e599d2a34418277db26af863d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GravityController
+  selector: {fileID: 0}
+  gravityStrength: 4
+  playerController: {fileID: 0}
+  gravitySoundClip: {fileID: 8300000, guid: 058a9584ab49e6c7d889fdbcd3cd1619, type: 3}
+  navMeshManager: {fileID: 0}

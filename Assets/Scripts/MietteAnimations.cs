@@ -15,7 +15,7 @@ public class MietteAnimations : MonoBehaviour
     [SerializeField] float groundDistance = 0.3f;
     [SerializeField] LayerMask groundMask;
 
-    [SerializeField] EnemyBehavior oldMonsterAI;
+    [SerializeField] EnemyAI oldMonsterAI;
     bool playerGrabbed;
 
     [SerializeField] private Transform player;

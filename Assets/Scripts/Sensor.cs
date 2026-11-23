@@ -32,10 +32,16 @@ public class Sensor : MonoBehaviour
 
             if (Physics.Raycast(laserStart.position, direction, out hit, maxDistance, layersToDetect))
             {
-                Debug.Log("Rayhit");
+                //Debug.Log("Rayhit");
                 if (hit.collider.CompareTag("Player") || hit.collider.CompareTag("Monster"))
                 {
+<<<<<<< Updated upstream
                     Debug.Log("Activate sensor");
+=======
+                    //Debug.Log("Activate sensor");
+                    // play laser sound effect
+                    SoundFXManager.instance.PlaySoundFXClip(laserSoundClip, transform, 0.3f);
+>>>>>>> Stashed changes
                     switchState.activated = true;
                 }
             }

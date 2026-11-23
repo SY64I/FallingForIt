@@ -58,7 +58,7 @@ public class ButtonController : MonoBehaviour
         else // button is unpressed
         {
             buttonActivatorMesh.material = buttonOffMat;
-            Debug.Log("button is unpressed");
+            //Debug.Log("button is unpressed");
         }
         
     }

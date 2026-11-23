@@ -130,13 +130,23 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3073
   playerAnim: {fileID: 3162689435623281470}
-  spawnPoint: {x: 0, y: 0, z: 0}
+  spawnPoint: {x: 2, y: 5.5, z: 0}
+  landingSoundClip:
+  - {fileID: 8300000, guid: 96dfff418007c3c12be961b295f2904b, type: 3}
+  - {fileID: 8300000, guid: 40896ff52cf15b0a8a2edcf3fa17342c, type: 3}
+  - {fileID: 8300000, guid: b57ee9925a6add1249ad75178531048a, type: 3}
+  - {fileID: 8300000, guid: 43d9a3678d5fe1ab5b91055741e122dd, type: 3}
+  - {fileID: 8300000, guid: 9bbe35f7eb16ea23faf42c7cd3b3dda0, type: 3}
+  - {fileID: 8300000, guid: cf7133ae59831dba7b3adbe7e8b7a5d9, type: 3}
+  acidSoundClip: {fileID: 8300000, guid: e41734b44c779c344a39c935e4a62866, type: 3}
   GodMode: 0
+  isDead: 0
   edgeHeightAmount: 0
   edgeHeightMax: 1.5
   edgeHeightMin: -2
   edgeHeightChangeSpeed: 3
   diedToGoo: 0
+  camRigObj: {fileID: 0}
 --- !u!114 &7640335414305107215
 MonoBehaviour:
   m_ObjectHideFlags: 0

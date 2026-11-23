@@ -99,6 +99,7 @@ Transform:
   - {fileID: 7040470990136836643}
   - {fileID: 8531247048289478174}
   - {fileID: 1471060460503896372}
+  - {fileID: 8459916418231556619}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1408803228283955799
@@ -122,6 +123,7 @@ MonoBehaviour:
   moveAction: {fileID: 7247130583334084447, guid: 3c86124078d531ba2a322bce755dd6f5, type: 3}
   jumpAction: {fileID: -3167328190911024516, guid: 3c86124078d531ba2a322bce755dd6f5, type: 3}
   cameraTransform: {fileID: 0}
+  rotationPivot: {fileID: 8459916418231556619}
   groundCheck: {fileID: 1471060460503896372}
   groundDistance: 0.1
   groundMask:
@@ -973,6 +975,37 @@ Transform:
   m_Children:
   - {fileID: 7696459772363498287}
   m_Father: {fileID: 7041001174865339590}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5563529531191054171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8459916418231556619}
+  m_Layer: 0
+  m_Name: RotationPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8459916418231556619
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5563529531191054171}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.612, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8940918750685406890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5565481722923866606
 GameObject:

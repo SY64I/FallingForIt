@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -82,5 +83,13 @@ public class GameManager : MonoBehaviour
         playerControls.Respawn();
         uiAnim.SetBool("close", false);
         respawning = false;
+    }
+
+    public IEnumerator TransitionLevel(string nextLevel)
+    {
+        if (uiAnim != null) uiAnim.SetBool("close", true); 
+        yield return new WaitForSeconds(0.75f);
+
+        SceneManager.LoadScene(nextLevel);
     }
 }

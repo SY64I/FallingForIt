@@ -16,7 +16,11 @@ public class MietteAnimations : MonoBehaviour
     [SerializeField] LayerMask groundMask;
 
     [SerializeField] EnemyAI oldMonsterAI;
+    [SerializeField] private AudioClip[] mietteIdleSoundClips;
+    [SerializeField] private AudioClip[] mietteChaseSoundClips;
+    public float counterTime = 6f;
     bool playerGrabbed;
+    int mietteState = 0; //0 for idle, 1 for stuck (not implemented yet), 2 for chase
 
     [SerializeField] private Transform player;
     PlayerControls playerControls;
@@ -43,15 +47,39 @@ public class MietteAnimations : MonoBehaviour
         if (rb.linearVelocity.sqrMagnitude > walkingThreshold)
         {
             anim.SetBool("isWalking", true);
+            mietteState = 2;
         }
         else
         {
             anim.SetBool("isWalking", false);
+            mietteState = 0;
         }
 
         if (playerGrabbed && !GameManager.instance.respawning)
         {
             player.transform.localPosition = Vector3.zero;
+        }
+    
+
+        if (counterTime > 0)
+        {
+            counterTime -= Time.deltaTime;
+        }
+        else
+        {
+            if (mietteState == 0) // idle
+            {
+                int randomSound = Random.Range(0, mietteIdleSoundClips.Length);
+                var clip = mietteIdleSoundClips[randomSound];
+                SoundFXManager.instance.PlaySoundFXClip(clip, transform, 1f);
+            } else if (mietteState == 2) // chasing
+            {
+                int randomSound = Random.Range(0, mietteChaseSoundClips.Length);
+                var clip = mietteChaseSoundClips[randomSound];
+                SoundFXManager.instance.PlaySoundFXClip(clip, transform, 1f);            }
+            // randomize time until next sound
+            int time = Random.Range(3, 10);
+            counterTime = time;
         }
 
     }

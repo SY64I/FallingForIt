@@ -22,7 +22,6 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundDistance = 0.3f;
     [SerializeField] LayerMask groundMask;
-
     Vector3 playerVelocity;
     [SerializeField] Animator playerAnim;
     [SerializeField] Vector3 spawnPoint;
@@ -287,6 +286,8 @@ public class PlayerControls : MonoBehaviour
             if (collision.gameObject.CompareTag("Goo"))
             {
                 playerAnim.SetTrigger("dieAcid");
+                // play acid death sound
+                SoundFXManager.instance.PlaySoundFXClip(acidSoundClip, transform, 0.3f);
                 diedToGoo = true;
                 isDead = true;
             }

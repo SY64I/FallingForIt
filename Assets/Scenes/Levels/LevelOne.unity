@@ -81756,9 +81756,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 685134021}
     m_Modifications:
-    - target: {fileID: 2351105516603860662, guid: a2e788b9022be8540b7b9e7bb2f50ee6, type: 3}
-      propertyPath: m_Layer
-      value: 0
+    - target: {fileID: 1624258808469179596, guid: a2e788b9022be8540b7b9e7bb2f50ee6, type: 3}
+      propertyPath: nextSceneName
+      value: LevelTwo
       objectReference: {fileID: 0}
     - target: {fileID: 4546024830786357159, guid: a2e788b9022be8540b7b9e7bb2f50ee6, type: 3}
       propertyPath: m_Name

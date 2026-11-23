@@ -131,15 +131,12 @@ MonoBehaviour:
     m_Bits: 3073
   playerAnim: {fileID: 3162689435623281470}
   spawnPoint: {x: 0, y: 0, z: 0}
-<<<<<<< Updated upstream
-=======
   GodMode: 0
   edgeHeightAmount: 0
   edgeHeightMax: 1.5
   edgeHeightMin: -2
   edgeHeightChangeSpeed: 3
   diedToGoo: 0
->>>>>>> Stashed changes
 --- !u!114 &7640335414305107215
 MonoBehaviour:
   m_ObjectHideFlags: 0

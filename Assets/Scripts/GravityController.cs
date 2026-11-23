@@ -1,23 +1,34 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody))]
 public class GravityController : MonoBehaviour
 {
     [SerializeField] private GravityDirection selector;
-    private float gravity = 9.81f;
     [SerializeField] private float gravityStrength = 2f;
     [SerializeField] private PlayerControls playerController;
     [SerializeField] private AudioClip gravitySoundClip;
+    [SerializeField] private GravityNavMeshManager navMeshManager;
+
+    private const float BaseGravity = 9.81f;
 
     private void Start()
     {
         ResetGravityDirection();
+
+        if (navMeshManager != null)
+        {
+            navMeshManager.InitializeForGravity(Physics.gravity);
+        }
+        else
+        {
+            Debug.LogError("GravityNavMeshManager is not assigned!");
+        }
     }
 
     private void Update()
     {
+        bool playerIsDead = playerController != null && playerController.isDead;
+
         if (Keyboard.current != null &&
             Keyboard.current.leftShiftKey.wasPressedThisFrame && !playerController.isDead)
         {
@@ -28,40 +39,31 @@ public class GravityController : MonoBehaviour
 
     public void ShiftGravity()
     {
-         Debug.Log("ShiftGravity started.");
-
         if (selector == null)
         {
             Debug.LogError("GravityDirection selector is not assigned!");
             return;
         }
 
-        bool success = selector.GetGravityDirection(out Vector3 newGravity);
-
-        Debug.Log("GetGravityDirection returned: " + success);
-
-        if (!success)
-        {
-            Debug.LogWarning("Could not determine gravity direction.");
+        if (!selector.GetGravityDirection(out Vector3 newGravity))
             return;
-        }
 
-        // play gravity sound effect
-        SoundFXManager.instance.PlaySoundFXClip(gravitySoundClip, transform, 1f);
-        
-        Physics.gravity = newGravity * gravity * gravityStrength;
+        if (SoundFXManager.instance != null && gravitySoundClip != null)
+            SoundFXManager.instance.PlaySoundFXClip(gravitySoundClip, transform, 1f);
+
+        // Gravity must change before the NavMesh manager is told,
+        // because enemies read Physics.gravity when they detach
+        Physics.gravity = newGravity * BaseGravity * gravityStrength;
+
+        if (navMeshManager != null)
+            navMeshManager.SetGravityDirection(Physics.gravity);
 
         if (playerController != null)
-        {
             playerController.AlignPlayerToGravity();
-        }
-
-        Debug.Log("New gravity: " + Physics.gravity);
-        Debug.Log("GravityController successfully applied gravity.");
     }
 
     public void ResetGravityDirection()
     {
-        Physics.gravity = Vector3.down * gravity * gravityStrength;
+        Physics.gravity = Vector3.down * BaseGravity * gravityStrength;
     }
 }

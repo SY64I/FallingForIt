@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 7279b6e6a908aa4df9724a82fb39c38b
   - enabled: 1
-    path: Assets/Scenes/LevelOne.unity
+    path: Assets/Scenes/EnemyAITest.unity
     guid: d8de3d5781fa8114d934c95c5c028c5b
   - enabled: 1
     path: Assets/Scenes/OldFinalLevel.unity

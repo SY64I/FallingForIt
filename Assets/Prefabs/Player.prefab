@@ -75,11 +75,10 @@ GameObject:
   - component: {fileID: 1408803228283955799}
   - component: {fileID: 7640335414305107215}
   - component: {fileID: 997368433183440665}
-  - component: {fileID: 1666358816687085885}
   - component: {fileID: 8066881797162423889}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +99,7 @@ Transform:
   - {fileID: 7040470990136836643}
   - {fileID: 8531247048289478174}
   - {fileID: 1471060460503896372}
+  - {fileID: 8459916418231556619}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1408803228283955799
@@ -123,13 +123,14 @@ MonoBehaviour:
   moveAction: {fileID: 7247130583334084447, guid: 3c86124078d531ba2a322bce755dd6f5, type: 3}
   jumpAction: {fileID: -3167328190911024516, guid: 3c86124078d531ba2a322bce755dd6f5, type: 3}
   cameraTransform: {fileID: 0}
+  rotationPivot: {fileID: 8459916418231556619}
   groundCheck: {fileID: 1471060460503896372}
   groundDistance: 0.1
   groundMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 3073
   playerAnim: {fileID: 3162689435623281470}
-  spawnPoint: {x: 0, y: 0, z: 0}
+  spawnPoint: {x: 2, y: 5.5, z: 0}
   landingSoundClip:
   - {fileID: 8300000, guid: 96dfff418007c3c12be961b295f2904b, type: 3}
   - {fileID: 8300000, guid: 40896ff52cf15b0a8a2edcf3fa17342c, type: 3}
@@ -138,6 +139,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9bbe35f7eb16ea23faf42c7cd3b3dda0, type: 3}
   - {fileID: 8300000, guid: cf7133ae59831dba7b3adbe7e8b7a5d9, type: 3}
   GodMode: 0
+  isDead: 0
   edgeHeightAmount: 0
   edgeHeightMax: 1.5
   edgeHeightMin: -2
@@ -157,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GravityDirection
   playerCamera: {fileID: 0}
-  rayDistance: 20
+  rayDistance: 80
 --- !u!54 &997368433183440665
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -185,22 +187,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 1
---- !u!114 &1666358816687085885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1670600565599968932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf154e599d2a34418277db26af863d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GravityController
-  selector: {fileID: 7640335414305107215}
-  gravityStrength: 4
-  playerController: {fileID: 1408803228283955799}
-  gravitySoundClip: {fileID: 0}
 --- !u!136 &8066881797162423889
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -989,6 +975,37 @@ Transform:
   m_Children:
   - {fileID: 7696459772363498287}
   m_Father: {fileID: 7041001174865339590}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5563529531191054171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8459916418231556619}
+  m_Layer: 0
+  m_Name: RotationPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8459916418231556619
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5563529531191054171}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.612, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8940918750685406890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5565481722923866606
 GameObject:

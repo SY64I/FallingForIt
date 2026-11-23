@@ -17,6 +17,7 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] InputActionReference jumpAction;
 
     [SerializeField] Transform cameraTransform;
+    [SerializeField] private Transform rotationPivot;
 
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundDistance = 0.3f;
@@ -45,6 +46,28 @@ public class PlayerControls : MonoBehaviour
     bool diedToFalling;
 
     [SerializeField] GameObject camRigObj;
+
+    private Vector3 pivotLocalOffset;
+    private float pivotToFeetDistance;
+
+    private void Awake()
+    {
+        Transform body = rb != null ? rb.transform : transform;
+
+        Vector3 pivotWorld;
+
+        if (rotationPivot != null)
+            pivotWorld = rotationPivot.position;
+        else if (playerCollision != null)
+            pivotWorld = body.TransformPoint(playerCollision.center);   // fall back to the collider's center
+        else
+            pivotWorld = body.position;
+
+        pivotLocalOffset = body.InverseTransformPoint(pivotWorld);
+
+        if (groundCheck != null)
+            pivotToFeetDistance = Vector3.Distance(pivotWorld, groundCheck.position);
+    }
 
     void OnEnable()
     {
@@ -212,13 +235,38 @@ public class PlayerControls : MonoBehaviour
 
         Vector3 newUp = -Physics.gravity.normalized;
 
-        // Rotate the player to match the new gravity direction
-        Quaternion delta =
-            Vector3.Dot(transform.up, newUp) < -0.999f
-            ? Quaternion.AngleAxis(180f, transform.forward)
-            : Quaternion.FromToRotation(transform.up, newUp);
+        Quaternion currentRotation = rb.rotation;
+        Vector3 currentUp = currentRotation * Vector3.up;
 
-        rb.rotation = delta * rb.rotation;
+        // Rotation needed to match the new gravity
+        Quaternion delta =
+            Vector3.Dot(currentUp, newUp) < -0.999f
+            ? Quaternion.AngleAxis(180f, currentRotation * Vector3.forward)
+            : Quaternion.FromToRotation(currentUp, newUp);
+
+        Quaternion newRotation = delta * currentRotation;
+
+        Vector3 scaledOffset = Vector3.Scale(pivotLocalOffset, rb.transform.lossyScale);
+        Vector3 offsetBefore = currentRotation * scaledOffset;
+        Vector3 offsetAfter = newRotation * scaledOffset;
+
+        Vector3 pivotWorld = rb.position + offsetBefore;
+
+        rb.position = pivotWorld - offsetAfter;
+        rb.rotation = newRotation;
+
+        // Pushes player along the new up if too close to new floor
+        if (pivotToFeetDistance > 0f &&
+            Physics.Raycast(
+                pivotWorld,
+                -newUp,
+                out RaycastHit hit,
+                pivotToFeetDistance,
+                groundMask,
+                QueryTriggerInteraction.Ignore))
+        {
+            rb.position += newUp * (pivotToFeetDistance - hit.distance + 0.02f);
+        }
     }
 
     bool CheckGrounded(Vector3 up)

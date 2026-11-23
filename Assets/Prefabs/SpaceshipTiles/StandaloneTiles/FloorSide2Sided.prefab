@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4991054751438702628}
   - component: {fileID: 715218043652498264}
   - component: {fileID: 3426527933911372413}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FloorSide2Sided
   m_TagString: Untagged
   m_Icon: {fileID: 0}

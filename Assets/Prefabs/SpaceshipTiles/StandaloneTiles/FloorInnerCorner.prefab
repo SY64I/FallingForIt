@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8091067311263256805}
   - component: {fileID: 7619539548862901923}
   - component: {fileID: 4252866773206438001}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FloorInnerCorner
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -27,8 +27,7 @@ public class EnemyAI : MonoBehaviour
     [Header("Detection")]
     [SerializeField] private float detectionRange = 20f;
 
-    [Tooltip("Field of view used to first notice the player. 360 = sees all around. " +
-             "While chasing, the enemy keeps tracking you regardless of angle.")]
+    [Tooltip("Field of view used to first notice the player")]
     [SerializeField, Range(10f, 360f)] private float viewAngle = 160f;
 
     [SerializeField] private float destinationUpdateInterval = 0.25f;
@@ -43,8 +42,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private LayerMask sightBlockers;
 
     [Header("Patrol")]
-    [Tooltip("Optional fixed route. Points that aren't on the active NavMesh are skipped, " +
-             "and the enemy wanders instead.")]
     [SerializeField] private Transform[] patrolPoints;
     [SerializeField] private float patrolSpeed = 2f;
     [SerializeField] private float patrolWaitTime = 1.5f;
@@ -61,6 +58,10 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float rotationSpeed = 360f;
     [SerializeField] private float directChargeRange = 6f;
 
+    [Header("Ledges")]
+    [SerializeField] private float maxDropHeight = 4f;
+    [SerializeField] private float airborneDetachDelay = 0.25f;
+
     [Header("Ground Detection")]
     [SerializeField] private float groundCheckRadius = 0.25f;
     [SerializeField] private float groundCheckDistance = 0.2f;
@@ -71,6 +72,8 @@ public class EnemyAI : MonoBehaviour
     private bool grounded;
     private bool agentRegistered;
     private float nextBehaviorUpdate;
+
+    private float airborneTime;
 
     private Vector3 lastKnownPlayerPosition;
 
@@ -148,6 +151,12 @@ public class EnemyAI : MonoBehaviour
     {
         if (navMeshManager == null || !navMeshManager.IsInitialized)
             return;
+        
+        if (agentRegistered && airborneTime > airborneDetachDelay)
+        {
+            DetachAgent(false);
+            return;
+        }
 
         if (!agentRegistered)
         {
@@ -180,6 +189,8 @@ public class EnemyAI : MonoBehaviour
         Vector3 up = -gravityDirection;
 
         grounded = CheckGrounded(gravityDirection);
+
+        airborneTime = grounded ? 0f : airborneTime + Time.fixedDeltaTime;
 
         MoveEnemy(up, gravityDirection);
     }
@@ -427,11 +438,14 @@ public class EnemyAI : MonoBehaviour
         {
             // No active path (gradually remove horizontal movement)
             planarVelocity = Vector3.ProjectOnPlane(rb.linearVelocity, up);
-            planarVelocity = Vector3.MoveTowards(
-                planarVelocity,
-                Vector3.zero,
-                idleDeceleration * Time.fixedDeltaTime
-            );
+            if (grounded)
+            {
+                planarVelocity = Vector3.MoveTowards(
+                    planarVelocity,
+                    Vector3.zero,
+                    idleDeceleration * Time.fixedDeltaTime
+                );
+            }
         }
 
         // Preserve the velocity along the gravity axis
@@ -498,15 +512,17 @@ public class EnemyAI : MonoBehaviour
         return agentStuck && CanSeePlayer();
     }
 
-    // Prevents the direct charge from walking off an edge
+    // Step off a ledge only when another surface is within maxDropHeight
     private bool GroundAhead(Vector3 direction, Vector3 gravityDirection)
     {
-        Vector3 probe = rb.position + direction * 0.8f;
+        const float probeHeight = 0.5f;
+
+        Vector3 probe = navigationPivot.position + direction * 0.8f - gravityDirection * probeHeight;
 
         return Physics.Raycast(
             probe,
             gravityDirection,
-            3f,
+            probeHeight + maxDropHeight,
             environmentMask,
             QueryTriggerInteraction.Ignore
         );
@@ -600,6 +616,19 @@ public class EnemyAI : MonoBehaviour
     private void OnGravityChanging()
     {
         // Detach from the old NavMesh before it is disabled
+        DetachAgent(true);
+
+        grounded = false;
+
+        airborneTime = 0f;
+
+        // Nothing from the old orientation carries over
+        rb.linearVelocity = Vector3.zero;
+    }
+
+    // Reset behavior on gravity changes; false when falling off a ledge.
+    private void DetachAgent(bool resetBehavior)
+    {
         if (agent.enabled)
         {
             agent.ResetPath();
@@ -607,13 +636,16 @@ public class EnemyAI : MonoBehaviour
         }
 
         agentRegistered = false;
-        grounded = false;
 
-        // Nothing from the old orientation carries over
-        rb.linearVelocity = Vector3.zero;
+        // Clear destination and waiting state
+        hasPatrolDestination = false;
+        patrolWaitUntil = 0f;
+        searchWaiting = false;
 
-        // Start over from patrol
-        EnterPatrol();
+        // On a gravity change, reset to Patrol
+        if (resetBehavior || state == State.Search)
+            EnterPatrol();
+
         nextBehaviorUpdate = 0f;
     }
 

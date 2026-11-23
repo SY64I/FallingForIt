@@ -63,6 +63,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 296116440745546373}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &633712314087349712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5251762425251936089}
+  - component: {fileID: 4081934964256455660}
+  m_Layer: 7
+  m_Name: NavigationPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5251762425251936089
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633712314087349712}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.12, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2123849055973521331}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &4081934964256455660
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633712314087349712}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1.4
+  m_Speed: 4
+  m_Acceleration: 12
+  avoidancePriority: 50
+  m_AngularSpeed: 360
+  m_StoppingDistance: 1.5
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.65
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &808195058455068219
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,6 +472,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1785565548634415723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3260110343633554659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8115255595458412204}
+  m_Layer: 7
+  m_Name: EyePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8115255595458412204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3260110343633554659}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.033, y: 0.18, z: 1.81}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2123849055973521331}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3550860044379757671
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,7 +515,7 @@ GameObject:
   - component: {fileID: 3572899273406996356}
   - component: {fileID: 6874746043091140971}
   - component: {fileID: 4267913913157346088}
-  - component: {fileID: 3571603154626632556}
+  - component: {fileID: 6588581243806587382}
   m_Layer: 7
   m_Name: Monster
   m_TagString: Monster
@@ -454,6 +539,8 @@ Transform:
   - {fileID: 2197156064601637204}
   - {fileID: 7491357377672623021}
   - {fileID: 5339381052627593458}
+  - {fileID: 5251762425251936089}
+  - {fileID: 8115255595458412204}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &3572899273406996356
@@ -501,11 +588,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &4267913913157346088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,9 +613,10 @@ MonoBehaviour:
   groundDistance: 0.1
   groundMask:
     serializedVersion: 2
-    m_Bits: 1
-  oldMonsterAI: {fileID: 3571603154626632556}
---- !u!114 &3571603154626632556
+    m_Bits: 3073
+  oldMonsterAI: {fileID: 6588581243806587382}
+  player: {fileID: 0}
+--- !u!114 &6588581243806587382
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -537,14 +625,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 3550860044379757671}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e21b9ab56135504a9462bd50036cb9b, type: 3}
+  m_Script: {fileID: 11500000, guid: dfc6f00489e73454c92cad1cb850f0ec, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyBehavior
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+  rb: {fileID: 6874746043091140971}
+  capsule: {fileID: 3572899273406996356}
+  agent: {fileID: 4081934964256455660}
+  navigationPivot: {fileID: 5251762425251936089}
+  groundCheck: {fileID: 7491357377672623021}
+  eyePoint: {fileID: 8115255595458412204}
   player: {fileID: 0}
-  detectionRange: 13
-  stopDistance: 0
-  moveSpeed: 5
-  turnSpeed: 8
+  navMeshManager: {fileID: 0}
+  detectionRange: 20
+  viewAngle: 160
+  destinationUpdateInterval: 0.25
+  targetSampleDistance: 3
+  fallbackSampleDistance: 25
+  playerTargetHeight: 1
+  environmentMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  sightBlockers:
+    serializedVersion: 2
+    m_Bits: 1024
+  patrolPoints: []
+  patrolSpeed: 2
+  patrolWaitTime: 1.5
+  patrolWanderRadius: 8
+  minWanderDistance: 2
+  chaseSpeed: 4
+  searchDuration: 4
+  arriveDistance: 0.5
+  idleDeceleration: 15
+  rotationSpeed: 360
+  directChargeRange: 6
+  groundCheckRadius: 0.25
+  groundCheckDistance: 0.2
+  navMeshSnapDistance: 0.75
 --- !u!1 &3581836197004219072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,7 +1349,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: 3cb0c027fb087eb4ead8af7ebfaec81d, type: 3}
+  - {fileID: 3424615190531320187, guid: 3cb0c027fb087eb4ead8af7ebfaec81d, type: 3}
+  - {fileID: 6852945267646246623, guid: 3cb0c027fb087eb4ead8af7ebfaec81d, type: 3}
+  - {fileID: -7323105537337934014, guid: 3cb0c027fb087eb4ead8af7ebfaec81d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

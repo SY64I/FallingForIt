@@ -8,6 +8,7 @@ public class ButtonController : MonoBehaviour
     [SerializeField] Animator buttonAnim;
     [SerializeField] MeshRenderer buttonActivatorMesh;
     [SerializeField] Material buttonOffMat, buttonOnMat;
+    [SerializeField] private AudioClip buttonSoundClip;
     private Switch switchState;
     private bool playerInRange;
 
@@ -38,16 +39,13 @@ public class ButtonController : MonoBehaviour
 
     void Update()
     {
-        if (playerInRange && Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame) // if player is within range and pressing interact key
+        if (playerInRange && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame) // if player is within range and pressing interact key
         {
+            // play button sound effect
+            SoundFXManager.instance.PlaySoundFXClip(buttonSoundClip, transform, 1f);
             ToggleButton();
         }
-        
-    }
 
-    private void ToggleButton()
-    {
-        switchState.activated = !switchState.activated;
         buttonAnim.SetBool("buttonPressed", switchState.activated);
 
         if (switchState.activated) // button is pressed
@@ -60,7 +58,12 @@ public class ButtonController : MonoBehaviour
             buttonActivatorMesh.material = buttonOffMat;
             //Debug.Log("button is unpressed");
         }
-        
+
+    }
+
+    private void ToggleButton()
+    {
+        switchState.activated = !switchState.activated;
     }
 
 }

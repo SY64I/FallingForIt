@@ -3,16 +3,17 @@ using UnityEngine;
 [RequireComponent(typeof(Switch))]
 public class Sensor : MonoBehaviour
 {
-    private Switch switchState;
+    [SerializeField] Switch switchState;
 
     [SerializeField] LineRenderer sensorLaser;
     [SerializeField] Transform laserStart, laserEnd;
     [SerializeField] LayerMask layersToDetect;
+    [SerializeField] private AudioClip laserSoundClip;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        switchState = GetComponent<Switch>();
+        //switchState = GetComponent<Switch>();
         sensorLaser = GetComponent<LineRenderer>();
 
         sensorLaser.positionCount = 2;
@@ -23,6 +24,7 @@ public class Sensor : MonoBehaviour
     {
         if (!switchState.activated)
         {
+            sensorLaser.enabled = true;
             sensorLaser.SetPosition(0, laserStart.position);
             sensorLaser.SetPosition(1, laserEnd.position);
 

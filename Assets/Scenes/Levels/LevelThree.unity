@@ -3501,6 +3501,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Miette
       objectReference: {fileID: 0}
+    - target: {fileID: 3550860044379757671, guid: 8b33425098ed3bb4dab6fd29f51ec438, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3571603154626632556, guid: 8b33425098ed3bb4dab6fd29f51ec438, type: 3}
       propertyPath: player
       value: 
@@ -4302,6 +4306,10 @@ PrefabInstance:
     - target: {fileID: 4961805903526421531, guid: 8bf44a836101d2145a40c05494b70f85, type: 3}
       propertyPath: m_Name
       value: Door (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961805903526421531, guid: 8bf44a836101d2145a40c05494b70f85, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -24045,6 +24053,10 @@ PrefabInstance:
     - target: {fileID: 1670600565599968932, guid: 381c9b4a659e3844da3288aeaf794e9b, type: 3}
       propertyPath: m_Name
       value: Asbro
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670600565599968932, guid: 381c9b4a659e3844da3288aeaf794e9b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1670600565599968932, guid: 381c9b4a659e3844da3288aeaf794e9b, type: 3}
       propertyPath: m_TagString

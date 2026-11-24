@@ -13,7 +13,7 @@ public class EscMenuController : MonoBehaviour
    private void Update()
    {
        if (Keyboard.current != null &&
-           Keyboard.current.escapeKey.wasPressedThisFrame)
+           Keyboard.current.escapeKey.wasPressedThisFrame && !GameManager.instance.victory)
        {
             escapeMenuActive = !escapeMenuActive;
             if (escapeMenuActive) // escape menu active

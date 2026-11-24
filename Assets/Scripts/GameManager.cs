@@ -77,6 +77,8 @@ public class GameManager : MonoBehaviour
                         // You win lmao
                         Debug.Log("Jail for Asbro! Jail for Asbro for 10000 years!");
                         victory = true;
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
                     }
 
                 }

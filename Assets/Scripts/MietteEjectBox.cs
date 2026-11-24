@@ -29,6 +29,10 @@ public class MietteEjectBox : MonoBehaviour
             float percentageComplete = elapsedTime / moveDuration;
             camObj.position = Vector3.Lerp(camStartPos, camMovePoint.position, moveCurve.Evaluate(percentageComplete));
         }
+        if (GameManager.instance.victory)
+        {
+            text.SetActive(true);
+        }
     }
 
 
@@ -40,8 +44,6 @@ public class MietteEjectBox : MonoBehaviour
             camStartPos = camObj.position;
             GameManager.instance.Eject();
             camIsMoving = true;
-
-            text.SetActive(true);
         }
     }
     /*

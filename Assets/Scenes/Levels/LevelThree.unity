@@ -24205,7 +24205,7 @@ PrefabInstance:
       objectReference: {fileID: 2100865942}
     - target: {fileID: 1408803228283955799, guid: 381c9b4a659e3844da3288aeaf794e9b, type: 3}
       propertyPath: GodMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1408803228283955799, guid: 381c9b4a659e3844da3288aeaf794e9b, type: 3}
       propertyPath: camRigObj

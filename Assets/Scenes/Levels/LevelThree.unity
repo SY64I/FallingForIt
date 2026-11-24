@@ -24205,7 +24205,7 @@ PrefabInstance:
       objectReference: {fileID: 2100865942}
     - target: {fileID: 1408803228283955799, guid: 381c9b4a659e3844da3288aeaf794e9b, type: 3}
       propertyPath: GodMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1408803228283955799, guid: 381c9b4a659e3844da3288aeaf794e9b, type: 3}
       propertyPath: camRigObj
@@ -58004,7 +58004,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 982064972316080436, guid: 2648c79b30fe1e95ca91ba13afdae126, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3361519708374883144, guid: 2648c79b30fe1e95ca91ba13afdae126, type: 3}
       propertyPath: playerControls
@@ -58052,7 +58052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5288449170825718966, guid: 2648c79b30fe1e95ca91ba13afdae126, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6908611695501494872, guid: 2648c79b30fe1e95ca91ba13afdae126, type: 3}
       propertyPath: m_fontAsset

@@ -71,12 +71,14 @@ public class MietteAnimations : MonoBehaviour
             {
                 int randomSound = Random.Range(0, mietteIdleSoundClips.Length);
                 var clip = mietteIdleSoundClips[randomSound];
-                SoundFXManager.instance.PlaySoundFXClip(clip, transform, 1f);
-            } else if (mietteState == 2) // chasing
+                SoundFXManager.instance.PlaySpatialSoundFXClip(clip, transform, 1f);
+            } 
+            else if (mietteState == 2) // chasing
             {
                 int randomSound = Random.Range(0, mietteChaseSoundClips.Length);
                 var clip = mietteChaseSoundClips[randomSound];
-                SoundFXManager.instance.PlaySoundFXClip(clip, transform, 1f);            }
+                SoundFXManager.instance.PlaySpatialSoundFXClip(clip, transform, 1f);            
+            }
             // randomize time until next sound
             int time = Random.Range(3, 10);
             counterTime = time;

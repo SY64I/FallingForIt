@@ -114,9 +114,9 @@ public class PlayerControls : MonoBehaviour
             Debug.Log("Player has died");
             if (!diedToFalling)
             {
+                rb.linearVelocity = Vector3.zero;
                 rb.isKinematic = true;
                 playerCollision.enabled = false;
-                rb.linearVelocity = Vector3.zero;
             }
             GameManager.instance.StartCoroutine(GameManager.instance.DeathSequence());
             hasDied = true;
@@ -317,8 +317,8 @@ public class PlayerControls : MonoBehaviour
     public void Respawn()
     {
         transform.parent = null;
-        rb.linearVelocity = Vector3.zero;
         rb.isKinematic = false;
+        rb.linearVelocity = Vector3.zero;
         rb.position = GameManager.instance.playerSpawnPoint;
         AlignPlayerToGravity();
         //transform.position = GameManager.instance.playerSpawnPoint;

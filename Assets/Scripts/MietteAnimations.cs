@@ -15,7 +15,7 @@ public class MietteAnimations : MonoBehaviour
     [SerializeField] float groundDistance = 0.3f;
     [SerializeField] LayerMask groundMask;
 
-    [SerializeField] EnemyAI oldMonsterAI;
+    [SerializeField] EnemyAI monsterAI;
     [SerializeField] private AudioClip[] mietteIdleSoundClips;
     [SerializeField] private AudioClip[] mietteChaseSoundClips;
     public float counterTime = 6f;
@@ -105,7 +105,7 @@ public class MietteAnimations : MonoBehaviour
                 playerControls.DeathByMonster();
                 player.parent = playerGrabLocation;
                 player.localRotation = Quaternion.Euler(0, 180, 0);
-                oldMonsterAI.enabled = false;
+                monsterAI.enabled = false;
                 anim.SetTrigger("attack");
                 playerGrabbed = true;
             }
@@ -115,9 +115,10 @@ public class MietteAnimations : MonoBehaviour
 
     public void Respawn()
     {
+        rb.position = GameManager.instance.monsterSpawnPoint;
         playerGrabbed = false;
         playerGrabLocation.DetachChildren();
-        oldMonsterAI.enabled = true;
+        monsterAI.enabled = true;
         anim.Play("Idle", 0, 0f);
     }
 }

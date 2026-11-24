@@ -614,7 +614,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 3073
-  oldMonsterAI: {fileID: 6588581243806587382}
+  monsterAI: {fileID: 6588581243806587382}
   mietteIdleSoundClips:
   - {fileID: 8300000, guid: acda19e48e761da65ba93ef1281beaef, type: 3}
   - {fileID: 8300000, guid: 06ca29d3d126d9cd98d78afdfd5e1045, type: 3}

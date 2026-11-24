@@ -16,6 +16,7 @@ public class DoorController : MonoBehaviour
     [SerializeField] private AudioClip doorSoundClip;
 
     [SerializeField] private bool showObjectiveOnOpen = false;
+    [SerializeField] private bool levelThreeMonsterDoor = false;
 
     private void Start()
     {
@@ -102,6 +103,11 @@ public class DoorController : MonoBehaviour
             {
                 Debug.Log("Door opened: displaying Find your way across");
                 ObjectiveUI.Instance.ShowObjective("Find your way across!", 0f);
+            }
+
+            if (levelThreeMonsterDoor && ObjectiveUI.Instance != null)
+            {
+                ObjectiveUI.Instance.ShowObjective("Lead the monster through the green sensor!", 0f);
             }
         }
 

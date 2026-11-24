@@ -52,6 +52,8 @@ MonoBehaviour:
   gravityControl: {fileID: 1448005848036694110}
   uiAnim: {fileID: 0}
   respawning: 0
+  ejecting: 0
+  ejectTimerDuration: 5
 --- !u!1 &4171849693690163019
 GameObject:
   m_ObjectHideFlags: 0

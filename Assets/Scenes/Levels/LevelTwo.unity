@@ -3736,6 +3736,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3550860044379757671, guid: 8b33425098ed3bb4dab6fd29f51ec438, type: 3}
   m_PrefabInstance: {fileID: 111289500}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &111289502 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2123849055973521331, guid: 8b33425098ed3bb4dab6fd29f51ec438, type: 3}
+  m_PrefabInstance: {fileID: 111289500}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &113178412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72024,6 +72029,14 @@ PrefabInstance:
       propertyPath: alignSpeed
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 7321546608306413030, guid: 458e8278836217b46aede1fed891ccd6, type: 3}
+      propertyPath: playerLookAt
+      value: 
+      objectReference: {fileID: 734897266}
+    - target: {fileID: 7321546608306413030, guid: 458e8278836217b46aede1fed891ccd6, type: 3}
+      propertyPath: monsterLookAt
+      value: 
+      objectReference: {fileID: 111289502}
     - target: {fileID: 8718176679295431297, guid: 458e8278836217b46aede1fed891ccd6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.201361

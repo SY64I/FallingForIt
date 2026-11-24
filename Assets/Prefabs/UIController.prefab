@@ -184,7 +184,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EscMenuController
   escapeMenu: {fileID: 5288449170825718966}
-  cam: {fileID: 0}
 --- !u!114 &3361519708374883144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,6 +204,7 @@ MonoBehaviour:
   clickSoundClip: {fileID: 8300000, guid: d86a49b0919f2257b953103e2ee1380e, type: 3}
   hoverSoundClip: {fileID: 8300000, guid: 1bc6d8e484eb50c2ebdf446ca5f98ce3, type: 3}
   leaveSoundClip: {fileID: 8300000, guid: 5b916dd287694eef388f7e7187d0a48c, type: 3}
+  playerControls: {fileID: 0}
 --- !u!1 &1226723318948367247
 GameObject:
   m_ObjectHideFlags: 0

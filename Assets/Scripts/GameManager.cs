@@ -85,6 +85,20 @@ public class GameManager : MonoBehaviour
         respawning = false;
     }
 
+    public void CheckpointRespawn()
+    {
+        respawning = true;
+        gravityControl.ResetGravityDirection();
+        monsterAnimationController.Respawn();
+        //monster.transform.position = monsterSpawnPoint;
+        monster.transform.rotation = monsterRotation;
+
+        Debug.Log("Moving player to " + playerSpawnPoint);
+        playerControls.Respawn();
+        uiAnim.SetBool("close", false);
+        respawning = false;
+    }
+
     public IEnumerator TransitionLevel(string nextLevel)
     {
         if (uiAnim != null) uiAnim.SetBool("close", true); 

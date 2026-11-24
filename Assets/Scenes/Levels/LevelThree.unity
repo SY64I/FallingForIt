@@ -64551,7 +64551,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395fe7c4fa08f3b41a305141a5e1a902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveTrigger
-  objective: Find your way across!
+  objective: 'Find your way across!
+
+    (Avoid the pink goo)'
   showWhen: 1
   displayTime: 0
   startDelay: 1.5

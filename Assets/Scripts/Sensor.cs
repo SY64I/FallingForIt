@@ -39,7 +39,7 @@ public class Sensor : MonoBehaviour
                 {
                     //Debug.Log("Activate sensor");
                     // play laser sound effect
-                    SoundFXManager.instance.PlaySoundFXClip(laserSoundClip, transform, 0.3f);
+                    SoundFXManager.instance.PlaySpatialSoundFXClip(laserSoundClip, transform, 0.3f);
                     switchState.activated = true;
                 }
             }

@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundFXManager
   soundFXObject: {fileID: 6888029896727576927, guid: a918604ef49c3f889bc860ed02ab545f, type: 3}
+  proximitySoundFXObject: {fileID: 7879536719215887086, guid: a8cb88227fb296c448d8257e6d2ebfe2, type: 3}

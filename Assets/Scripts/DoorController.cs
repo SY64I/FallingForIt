@@ -94,7 +94,7 @@ public class DoorController : MonoBehaviour
         if ((oldOpen == false) && (isOpen == true))
         {
             // door just opened, play sound
-            SoundFXManager.instance.PlaySoundFXClip(doorSoundClip, transform, 0.3f);
+            SoundFXManager.instance.PlaySpatialSoundFXClip(doorSoundClip, transform, 0.3f);
         }
 
         anim.SetBool("open", isOpen);

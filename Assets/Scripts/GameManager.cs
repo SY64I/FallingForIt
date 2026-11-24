@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         respawning = true;
         gravityControl.ResetGravityDirection();
         monsterAnimationController.Respawn();
-        monster.transform.position = monsterSpawnPoint;
+        //monster.transform.position = monsterSpawnPoint;
         monster.transform.rotation = monsterRotation;
         yield return new WaitForSeconds(0.1f); // Delay to prevent race condition of player spawning in Miette's grab point
 

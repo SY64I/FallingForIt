@@ -24,7 +24,13 @@ public class GameManager : MonoBehaviour
     public bool respawning;
 
     public event Action checkpointHit;
+    public event Action mietteEjected;
+    public event Action cancelEject;
+    public bool ejecting;
+    [SerializeField] float ejectTimerDuration;
+    float ejectTimerCounter;
 
+    public bool victory;
 
     private void Awake()
     {
@@ -48,12 +54,39 @@ public class GameManager : MonoBehaviour
         playerControls = player.GetComponent<PlayerControls>();
         monsterAnim = monster.GetComponentInChildren<Animator>();
         monsterAnimationController = monster.GetComponent<MietteAnimations>();
+
+        ejectTimerCounter = ejectTimerDuration;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (ejecting)
+        {
+            if (!playerControls.isDead)
+            {
+                if (ejectTimerCounter > 0)
+                {
+                    ejectTimerCounter -= Time.deltaTime;
+                }
+
+                if (ejectTimerCounter <= 0)
+                {
+                    if (!victory)
+                    {
+                        // You win lmao
+                        Debug.Log("Jail for Asbro! Jail for Asbro for 10000 years!");
+                        victory = true;
+                    }
+
+                }
+            }
+            else
+            {
+                cancelEject?.Invoke();
+                ejecting = false;
+            }
+        }
     }
 
 
@@ -101,9 +134,15 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator TransitionLevel(string nextLevel)
     {
-        if (uiAnim != null) uiAnim.SetBool("close", true); 
+        if (uiAnim != null) uiAnim.SetBool("close", true);
         yield return new WaitForSeconds(0.75f);
 
         SceneManager.LoadScene(nextLevel);
+    }
+
+    public void Eject()
+    {
+        mietteEjected?.Invoke();
+        ejecting = true;
     }
 }

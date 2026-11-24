@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2822071560538792289}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0000000027239615, y: -2.033167e-15, z: -5.538269e-24, w: 1}
-  m_LocalPosition: {x: -0.39964, y: -0.0076799393, z: -5.01535}
+  m_LocalRotation: {x: 0.36784714, y: -0.0028279475, z: 0.0011186937, w: 0.92988133}
+  m_LocalPosition: {x: -0.4957428, y: -14.851179, z: 10.784731}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -525,3 +525,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraRig
   player: {fileID: 0}
   alignSpeed: 10
+  cineCam: {fileID: 5565402214640437249}
+  cineFollow: {fileID: 4015589898841231447}
+  cineOcclude: {fileID: 5786286324234793015}
+  monsterLookAt: {fileID: 0}
+  playerLookAt: {fileID: 0}

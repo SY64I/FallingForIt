@@ -15,6 +15,8 @@ public class DoorController : MonoBehaviour
     [SerializeField] ActivatedLight[] lights;
     [SerializeField] private AudioClip doorSoundClip;
 
+    [SerializeField] private bool showObjectiveOnOpen = false;
+
     private void Start()
     {
         numberOfSwitches = connectedSwitches.Length;
@@ -95,6 +97,12 @@ public class DoorController : MonoBehaviour
         {
             // door just opened, play sound
             SoundFXManager.instance.PlaySpatialSoundFXClip(doorSoundClip, transform, 0.3f);
+
+            if (showObjectiveOnOpen && ObjectiveUI.Instance != null)
+            {
+                Debug.Log("Door opened: displaying Find your way across");
+                ObjectiveUI.Instance.ShowObjective("Find your way across!", 0f);
+            }
         }
 
         anim.SetBool("open", isOpen);

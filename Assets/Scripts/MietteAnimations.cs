@@ -15,13 +15,20 @@ public class MietteAnimations : MonoBehaviour
     [SerializeField] float groundDistance = 0.3f;
     [SerializeField] LayerMask groundMask;
 
-    [SerializeField] EnemyBehavior oldMonsterAI;
+    [SerializeField] EnemyAI monsterAI;
+    [SerializeField] private AudioClip[] mietteIdleSoundClips;
+    [SerializeField] private AudioClip[] mietteChaseSoundClips;
+    public float counterTime = 6f;
     bool playerGrabbed;
+    int mietteState = 0; //0 for idle, 1 for stuck (not implemented yet), 2 for chase
+
+    [SerializeField] private Transform player;
+    PlayerControls playerControls;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        playerControls = player.GetComponent<PlayerControls>();
     }
 
     // Update is called once per frame
@@ -40,10 +47,41 @@ public class MietteAnimations : MonoBehaviour
         if (rb.linearVelocity.sqrMagnitude > walkingThreshold)
         {
             anim.SetBool("isWalking", true);
+            mietteState = 2;
         }
         else
         {
             anim.SetBool("isWalking", false);
+            mietteState = 0;
+        }
+
+        if (playerGrabbed && !GameManager.instance.respawning)
+        {
+            player.transform.localPosition = Vector3.zero;
+        }
+    
+
+        if (counterTime > 0)
+        {
+            counterTime -= Time.deltaTime;
+        }
+        else
+        {
+            if (mietteState == 0) // idle
+            {
+                int randomSound = Random.Range(0, mietteIdleSoundClips.Length);
+                var clip = mietteIdleSoundClips[randomSound];
+                SoundFXManager.instance.PlaySpatialSoundFXClip(clip, transform, 1f);
+            } 
+            else if (mietteState == 2) // chasing
+            {
+                int randomSound = Random.Range(0, mietteChaseSoundClips.Length);
+                var clip = mietteChaseSoundClips[randomSound];
+                SoundFXManager.instance.PlaySpatialSoundFXClip(clip, transform, 1f);            
+            }
+            // randomize time until next sound
+            int time = Random.Range(3, 10);
+            counterTime = time;
         }
 
     }
@@ -63,16 +101,26 @@ public class MietteAnimations : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (!playerGrabbed)
+            if (!playerGrabbed && !playerControls.GodMode)
             {
                 rb.linearVelocity = Vector3.zero;
-                other.transform.parent = playerGrabLocation;
-                other.transform.localRotation = Quaternion.Euler(0, 180, 0);
-                oldMonsterAI.enabled = false;
+                playerControls.DeathByMonster();
+                player.parent = playerGrabLocation;
+                player.localRotation = Quaternion.Euler(0, 180, 0);
+                monsterAI.enabled = false;
                 anim.SetTrigger("attack");
                 playerGrabbed = true;
             }
-            other.transform.localPosition = Vector3.zero;
+
         }
+    }
+
+    public void Respawn()
+    {
+        rb.position = GameManager.instance.monsterSpawnPoint;
+        playerGrabbed = false;
+        playerGrabLocation.DetachChildren();
+        monsterAI.enabled = true;
+        anim.Play("Idle", 0, 0f);
     }
 }

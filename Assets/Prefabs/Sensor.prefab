@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Switch
   activated: 0
+  resetUnlessNextCheckpoint: 0
 --- !u!114 &1348923578333625519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,12 +153,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aded44b92edee9f44a5dfa3452e7e846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sensor
+  switchState: {fileID: 3199145964032324324}
   sensorLaser: {fileID: 8822545466540750240}
   laserStart: {fileID: 5075196472063106261}
   laserEnd: {fileID: 2572850809388367674}
   layersToDetect:
     serializedVersion: 2
     m_Bits: 137
+  laserSoundClip: {fileID: 8300000, guid: 97c103eeb31be4717a1f11f10adc8ff1, type: 3}
 --- !u!120 &8822545466540750240
 LineRenderer:
   serializedVersion: 3

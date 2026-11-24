@@ -54,6 +54,7 @@ MonoBehaviour:
   respawning: 0
   ejecting: 0
   ejectTimerDuration: 5
+  victory: 0
 --- !u!1 &4171849693690163019
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GravityController
   selector: {fileID: 0}
-  gravityStrength: 4
+  gravityStrength: 3
   playerController: {fileID: 0}
   gravitySoundClip: {fileID: 8300000, guid: 058a9584ab49e6c7d889fdbcd3cd1619, type: 3}
   navMeshManager: {fileID: 0}

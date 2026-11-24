@@ -58648,7 +58648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395fe7c4fa08f3b41a305141a5e1a902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveTrigger
-  objective: Use magents to make your way across the room!
+  objective: Use magnets to make your way across the room!
   showWhen: 0
   displayTime: 0
   startDelay: 1

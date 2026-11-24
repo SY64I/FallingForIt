@@ -89,7 +89,7 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        if (!isDead)
+        if (!isDead && !GameManager.instance.ejecting)
         {
             if (jumpAction.action.WasPressedThisFrame())
             {

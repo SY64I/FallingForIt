@@ -12,10 +12,12 @@ public class MietteEjectBox : MonoBehaviour
 
     [SerializeField] AnimationCurve moveCurve;
 
+    [SerializeField] GameObject text;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        text.SetActive(false);
     }
 
     // Update is called once per frame
@@ -26,6 +28,10 @@ public class MietteEjectBox : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float percentageComplete = elapsedTime / moveDuration;
             camObj.position = Vector3.Lerp(camStartPos, camMovePoint.position, moveCurve.Evaluate(percentageComplete));
+        }
+        if (GameManager.instance.victory)
+        {
+            text.SetActive(true);
         }
     }
 
@@ -38,7 +44,6 @@ public class MietteEjectBox : MonoBehaviour
             camStartPos = camObj.position;
             GameManager.instance.Eject();
             camIsMoving = true;
-
         }
     }
     /*

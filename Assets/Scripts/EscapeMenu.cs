@@ -12,7 +12,6 @@ public class EscapeMenu : MonoBehaviour
     [SerializeField] private AudioClip clickSoundClip;
     [SerializeField] private AudioClip hoverSoundClip;
     [SerializeField] private AudioClip leaveSoundClip;
-    public PlayerControls playerControls;
 
     public void HoverButton()
     {
@@ -39,7 +38,7 @@ public class EscapeMenu : MonoBehaviour
         Cursor.visible = false;
         Time.timeScale = 1f;
         escapeMenu.SetActive(false);
-        playerControls.Respawn();
+        GameManager.instance.CheckpointRespawn();
     }
 
     public void RestartGame()
